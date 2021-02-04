@@ -1,9 +1,14 @@
 Name of Group: JSEN
 Group Members: Sarah Zhang, Evan Xiang, Jingwen Zhang, Nancy Li
+
+
+
 Description of Project: Scraping college subreddits on Reddit and creating lists of
 most popular keywords from different colleges. Users enter the college, time
 frame, and task they want accomplished. The scope of the project will be limited to
 the ten top colleges according to USNews.
+
+
 Goals of Project:
 - The goal is to be able to scrape college subreddits
 - It will return most popular keywords/phrases from the subreddits for a given
@@ -17,6 +22,8 @@ the same college across time periods
 - It can create a graph that will show the word prevalence as a
 percentage of total words over time
 - It will also analyze upvotes
+
+
 Data Sources We Plan to Use :
 HTML and API from subreddit links
 Lists of Tasks to Complete and Timeline for Completing them:
@@ -24,6 +31,8 @@ Each of us is responsible for one of the above tasks.
 Nancy: Analyzing word prevalence over time
 Evan/Sarah: Percentage Similarities/ Top Keywords
 Jingwen: Analyzing upvotes
+
+
 Week 4
 - Presentation
 Week 5
