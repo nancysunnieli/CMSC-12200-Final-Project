@@ -26,10 +26,16 @@ percentage of total words over time
 
 Data Sources We Plan to Use :
 HTML and API from subreddit links
+
+
 Lists of Tasks to Complete and Timeline for Completing them:
+
 Each of us is responsible for one of the above tasks.
+
 Nancy: Analyzing word prevalence over time
+
 Evan/Sarah: Percentage Similarities/ Top Keywords
+
 Jingwen: Analyzing upvotes
 
 
