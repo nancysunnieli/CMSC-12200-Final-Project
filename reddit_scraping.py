@@ -38,7 +38,7 @@ df = pd.DataFrame()
 for school in list_of_schools:
     r = requests.get("https://oauth.reddit.com/r/" + school + "/new",
                    headers=headers,
-                   params= {"limit": "1000"})
+                   params= {"limit": "100"})
     for post in r.json()["data"]["children"]:
         df = df.append({
             "subreddit": post["data"]["subreddit"],
@@ -47,7 +47,8 @@ for school in list_of_schools:
             "upvote_ratio": post["data"]["upvote_ratio"],
             "ups":post["data"]["ups"],
             "downs": post["data"]["downs"],
-            "score": post["data"]["score"]
+            "score": post["data"]["score"],
+            "created_utc": post["data"]["created_utc"]
         }, ignore_index = True)
 
 df.to_csv("raw_school_data.csv", index = False, header = True)
