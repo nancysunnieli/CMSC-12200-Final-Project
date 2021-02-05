@@ -35,8 +35,9 @@ list_of_schools = ["Harvard", "Princeton", "Yale", "MIT", "Stanford", "UChicago"
 df = pd.DataFrame()
 
 #pulling title, date-time, content, and reactions to a post
-last_post = None
+
 for school in list_of_schools:
+    last_post = None
     for i in range(100):
         r = requests.get("https://oauth.reddit.com/r/" + school + "/new",
                           headers=headers,
@@ -53,6 +54,7 @@ for school in list_of_schools:
                 "created_utc": post["data"]["created_utc"]
             }, ignore_index = True)
         last_post = post["data"]["name"]
+    df.to_csv(school + "_raw_data.csv", index = False, header = True)
+    df = pd.DataFrame()
 
-df.to_csv("raw_school_data.csv", index = False, header = True)
 
