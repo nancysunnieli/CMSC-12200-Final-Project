@@ -38,7 +38,7 @@ df = pd.DataFrame()
 for school in list_of_schools:
     r = requests.get("https://oauth.reddit.com/r/" + school + "/new",
                    headers=headers,
-                   params= {"limit": "100"})
+                   params= {"limit": "1000"})
     for post in r.json()["data"]["children"]:
         df = df.append({
             "subreddit": post["data"]["subreddit"],
