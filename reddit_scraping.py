@@ -38,7 +38,7 @@ df = pd.DataFrame()
 
 for school in list_of_schools:
     last_post = None
-    for i in range(100):
+    for i in range(1000):
         r = requests.get("https://oauth.reddit.com/r/" + school + "/new",
                           headers=headers,
                           params= {"limit": "100", "after": last_post})
