@@ -46,12 +46,13 @@ for school in list_of_schools:
             df = df.append({
                 "subreddit": post["data"]["subreddit"],
                 "title" : post["data"]["title"],
-                "selftext": post["data"]["selftext"],
+                "text": post["data"]["selftext"],
                 "upvote_ratio": post["data"]["upvote_ratio"],
                 "ups":post["data"]["ups"],
                 "downs": post["data"]["downs"],
                 "score": post["data"]["score"],
-                "created_utc": post["data"]["created_utc"]
+                "epoch_time": post["data"]["created_utc"],
+                "unique_post_id": post["data"]["name"]
             }, ignore_index = True)
         last_post = post["data"]["name"]
     df.to_csv(school + "_raw_data.csv", index = False, header = True)
