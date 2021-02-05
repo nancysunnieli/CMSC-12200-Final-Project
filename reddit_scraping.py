@@ -35,21 +35,24 @@ list_of_schools = ["Harvard", "Princeton", "Yale", "MIT", "Stanford", "UChicago"
 df = pd.DataFrame()
 
 #pulling title, date-time, content, and reactions to a post
+last_post = None
 for school in list_of_schools:
-    r = requests.get("https://oauth.reddit.com/r/" + school + "/new",
-                   headers=headers,
-                   params= {"limit": "100"})
-    for post in r.json()["data"]["children"]:
-        df = df.append({
-            "subreddit": post["data"]["subreddit"],
-            "title" : post["data"]["title"],
-            "selftext": post["data"]["selftext"],
-            "upvote_ratio": post["data"]["upvote_ratio"],
-            "ups":post["data"]["ups"],
-            "downs": post["data"]["downs"],
-            "score": post["data"]["score"],
-            "created_utc": post["data"]["created_utc"]
-        }, ignore_index = True)
+    for i in range(100):
+        r = requests.get("https://oauth.reddit.com/r/" + school + "/new",
+                          headers=headers,
+                          params= {"limit": "100", "after": last_post})
+        for post in r.json()["data"]["children"]:
+            df = df.append({
+                "subreddit": post["data"]["subreddit"],
+                "title" : post["data"]["title"],
+                "selftext": post["data"]["selftext"],
+                "upvote_ratio": post["data"]["upvote_ratio"],
+                "ups":post["data"]["ups"],
+                "downs": post["data"]["downs"],
+                "score": post["data"]["score"],
+                "created_utc": post["data"]["created_utc"]
+            }, ignore_index = True)
+        last_post = post["data"]["name"]
 
 df.to_csv("raw_school_data.csv", index = False, header = True)
 
