@@ -19,4 +19,4 @@ CREATE TABLE post_words
 
 .separator ","
 
-.import words_raw_data.csv post_words
+.import word_raw_data.csv post_words
