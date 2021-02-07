@@ -1,5 +1,6 @@
 """
 References: https://docs.python.org/3/library/time.html#time.strftime
+            https://realpython.com/python-matplotlib-guide/
 """
 
 # This task is to analyze word prevalence over time
@@ -61,7 +62,7 @@ def convert_epoch_time_to_date_time(times_to_convert):
         for time2 in time1:
             converted_time = datetime.datetime.fromtimestamp(time2).strftime("%m/%d/%Y")
             single_time.append(converted_time)
-        single_time = tuple(single_time)
+        single_time = str(tuple(single_time))
         converted_times.append(single_time)
         single_time = []
     
@@ -270,17 +271,19 @@ def create_graph(user_input):
     """
 
     word_percentages, converted_times, word = compute_word_prevalence(user_input)
-    print(word_percentages)
-    print(converted_times)
     x = converted_times
     y = word_percentages
 
     plt.plot(x, y)
 
-    plt.xlabel("time period")
+    plt.xticks(rotation = 90, fontsize = 10)
+
+    plt.xlabel("time period (" + converted_times[0][2:10] +" to " + converted_times[-1][2:10] + ")")
     plt.ylabel("percentage use of word")
 
-    plt.title("Percentage use of " + word + " over time")
+    plt.title("Percentage use of (" + word + ") over time")
 
+    plt.tight_layout()
+    
     plt.show()
 
