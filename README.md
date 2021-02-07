@@ -62,3 +62,16 @@ the rest of the data
 Week 7-8
 - Each team member works on their designated task separately
 - Then, we will integrate all the programs so that it runs cohesively
+
+
+DATA INFO:
+
+Caltech:  April 14, 2011
+Harvard: September 13, 2019
+JHU: July 13, 2020 
+MIT: October 7, 2019 
+Princeton: April 1, 2015
+Stanford: August 24, 2020
+UChicago: July 30, 2020
+UPenn: December 5, 2020
+Yale: June 28, 2018
