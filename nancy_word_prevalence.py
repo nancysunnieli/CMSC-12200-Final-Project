@@ -21,7 +21,7 @@ References: https://docs.python.org/3/library/time.html#time.strftime
 
 import datetime
 import sqlite3
-
+import matplotlib.pyplot as plt
 
 def convert_date_time_to_epoch_time(time_to_convert):
     """
@@ -42,7 +42,44 @@ def convert_date_time_to_epoch_time(time_to_convert):
 
     return epoch_time
 
+def convert_epoch_time_to_date_time(times_to_convert):
+    """
+    This function takes in a list of tuples of epoch times
+    and converts the values into date time format.
+
+    Inputs:
+        times_to_convert (list of tuples of integers): represents
+        the intervals of time
+    Outputs:
+        converted_times (list of tuples of integers): represents
+        the intervals of time in date time format.
+    """
+    converted_times = []
+    single_time = []
+    for time1 in times_to_convert:
+        start_time, end_time = time1
+        for time2 in time1:
+            converted_time = datetime.datetime.fromtimestamp(time2).strftime("%m/%d/%Y")
+            single_time.append(converted_time)
+        single_time = tuple(single_time)
+        converted_times.append(single_time)
+        single_time = []
+    
+    return converted_times
+        
+
 def compute_all_words_of_given_time_period(start_epoch_date, end_epoch_date, colleges):
+    """
+    This functions returns back the number of words from a given time period.
+
+    Inputs:
+        start_epoch_date (int): start time in epoch units
+        end_epoch_date (int): end time in epoch units
+        colleges (list of strings): list of names of colleges
+
+    Outputs:
+        word_count_all (int): the number of words from the given time period
+    """
     db = sqlite3.connect("db.sqlite3")
     c = db.cursor()
     query = ("""SELECT count(*) FROM post_words JOIN post_info
@@ -69,6 +106,19 @@ def compute_all_words_of_given_time_period(start_epoch_date, end_epoch_date, col
     return word_count_all
 
 def compute_selected_word_of_given_time_period(start_epoch_date, end_epoch_date, colleges, word):
+    """
+    This functions returns back the number of times
+    a given word was used during a given time period.
+
+    Inputs:
+        start_epoch_date (int): start time in epoch units
+        end_epoch_date (int): end time in epoch units
+        colleges (list of strings): list of names of colleges
+        word (string): word to search for
+
+    Outputs:
+        word_count (int): the amount of times the word appears in the time period
+    """
     db = sqlite3.connect("db.sqlite3")
     c = db.cursor()
     query = ("""SELECT count(*) FROM post_words JOIN post_info
@@ -97,10 +147,25 @@ def compute_selected_word_of_given_time_period(start_epoch_date, end_epoch_date,
     
     
 
-def compute_word_as_percentage_of_all_words(start_epoch_time, end_epoch_time, colleges, word):
+def compute_word_as_percentage_of_all_words(start_epoch_date, end_epoch_date, colleges, word):
+    """
+    Uses the compute_selected_word_of_given_time_period and
+    the compute_all_words_given_time_period functions to compute
+    the percentage of all words that the given word was used
+    during the time period.
 
-    word_count_all = compute_all_words_of_given_time_period(start_epoch_time, end_epoch_time, colleges)
-    word_count = compute_selected_word_of_given_time_period(start_epoch_time, end_epoch_time, colleges, word)
+    Inputs:
+        start_epoch_date (int): start time in epoch units
+        end_epoch_date (int): end time in epoch units
+        colleges (list of strings): list of names of colleges
+        word (string): word to search for
+    Outputs:
+        word_percentage (float): percentage of all words that the given word
+                                 was used during the time period.
+    """
+
+    word_count_all = compute_all_words_of_given_time_period(start_epoch_date, end_epoch_date, colleges)
+    word_count = compute_selected_word_of_given_time_period(start_epoch_date, end_epoch_date, colleges, word)
     if word_count_all == 0:
         word_percentage = 0
     else:
@@ -110,6 +175,9 @@ def compute_word_as_percentage_of_all_words(start_epoch_time, end_epoch_time, co
 
 def compute_epoch_times(epoch_start_date, epoch_end_date, data_points):
     """
+    Segments the period of time between the start date and end date into
+    enough components to equal the amount of desired data_points.
+
     Inputs:
         epoch_start_date (string): start date in terms of epoch time
         epoch_end_date (string): end date in terms of epoch time
@@ -133,8 +201,10 @@ def compute_epoch_times(epoch_start_date, epoch_end_date, data_points):
 
 
 def compute_word_prevalence(user_input):
-
     """
+    Given the user input, the function compute the word prevalence across
+    a given period of time, segmented into chunks.
+
     Inputs:
         user_input (dictionary): The user input is a dictionary
         of the following form {"time frame": (start_date, end_date),
@@ -143,13 +213,16 @@ def compute_word_prevalence(user_input):
 
         The start_date and end_date entered as input for "time_frame"
         will be in the following form: MM/DD/YY
+    Outputs:
+        word_percentages (list of floats): percent of time that the word shows up
+                                            in each of the time periods
     """
 
     start_date, end_date = user_input["time frame"]
     epoch_start_date = convert_date_time_to_epoch_time(start_date)
     epoch_end_date = convert_date_time_to_epoch_time(end_date)
 
-    data_points = user_input["data points"]
+    data_points = user_input["data points"] + 1
     data_point_times = compute_epoch_times(epoch_start_date, epoch_end_date, data_points)
 
     i = 0
@@ -160,6 +233,7 @@ def compute_word_prevalence(user_input):
         range_of_one_time = (i, i+1)
         range_of_times.append(range_of_one_time)
     
+    data_point_intervals = []
     word_percentages = []
     colleges = []
     if "college" in user_input:
@@ -170,13 +244,43 @@ def compute_word_prevalence(user_input):
             data_point_time = tuple(data_point_times[starting_index: ending_index + 1])
         else:
             data_point_time = tuple(data_point_times[starting_index:])
+        data_point_intervals.append(data_point_time)
         starting_index, ending_index = data_point_time
         word_percentage = compute_word_as_percentage_of_all_words(starting_index, ending_index, colleges, user_input["word"])
         word_percentages.append(word_percentage)
 
-    return word_percentages
+    converted_times = convert_epoch_time_to_date_time(data_point_intervals)
+    return (word_percentages, converted_times, user_input["word"])
 
+def create_graph(user_input):
+    """
+    Takes in the user_input and returns a graph of the desired data.
 
+    Inputs:
+        user_input (dictionary): The user input is a dictionary
+        of the following form {"time frame": (start_date, end_date),
+        "data points": integer, "college" : [list of strings],
+        "word" : string}
 
-def create_graph():
-    pass
+        The start_date and end_date entered as input for "time_frame"
+        will be in the following form: MM/DD/YY
+    
+    Outputs:
+        graphs
+    """
+
+    word_percentages, converted_times, word = compute_word_prevalence(user_input)
+    print(word_percentages)
+    print(converted_times)
+    x = converted_times
+    y = word_percentages
+
+    plt.plot(x, y)
+
+    plt.xlabel("time period")
+    plt.ylabel("percentage use of word")
+
+    plt.title("Percentage use of " + word + " over time")
+
+    plt.show()
+
