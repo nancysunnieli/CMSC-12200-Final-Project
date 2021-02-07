@@ -22,8 +22,6 @@ References: https://docs.python.org/3/library/time.html#time.strftime
 import datetime
 import sqlite3
 
-db = sqlite3.connect("db.sqlite3")
-c = db.cursor()
 
 def convert_date_time_to_epoch_time(time_to_convert):
     """
@@ -45,56 +43,68 @@ def convert_date_time_to_epoch_time(time_to_convert):
     return epoch_time
 
 def compute_all_words_of_given_time_period(start_epoch_date, end_epoch_date, colleges):
+    db = sqlite3.connect("db.sqlite3")
+    c = db.cursor()
     query = ("""SELECT count(*) FROM post_words JOIN post_info
                  ON post_words.unique_post_id = post_info.unique_post_id
                   WHERE post_info.epoch_time >= ? AND post_info.epoch_time <= ?""")
 
-    params = [str(start_epoch_date), str(end_epoch_date)]
+    params = [start_epoch_date, end_epoch_date]
 
     if colleges != []:
         for college in colleges:
             params.append(college)
-            query += " AND (post_info.subreddit = ?"
+            if college == colleges[0]:
+                query += " AND (post_info.subreddit = ? COLLATE NOCASE "
             if college == colleges[-1]:
                 query += ")"
             else:
-                query += " OR post.info subreddit = ?"
+                query += " OR post_info.subreddit = ? COLLATE NOCASE"
     params = tuple(params)
     
     r = c.execute(query, params)
     word_count_all = r.fetchall()
+    word_count_all = word_count_all[0][0]
+    db.close()
     return word_count_all
 
 def compute_selected_word_of_given_time_period(start_epoch_date, end_epoch_date, colleges, word):
+    db = sqlite3.connect("db.sqlite3")
+    c = db.cursor()
     query = ("""SELECT count(*) FROM post_words JOIN post_info
                  ON post_words.unique_post_id = post_info.unique_post_id
                   WHERE post_info.epoch_time >= ? AND post_info.epoch_time <= ?
-                   AND word = ?""")
+                   AND post_words.word = ? COLLATE NOCASE""")
     
-    params = [str(start_epoch_date), str(end_epoch_date), word]
+    params = [start_epoch_date, end_epoch_date, word]
 
     if colleges != []:
         for college in colleges:
             params.append(college)
-            query += " AND (post_info.subreddit = ?"
+            if college == colleges[0]:
+                query += " AND (post_info.subreddit = ? COLLATE NOCASE "
             if college == colleges[-1]:
                 query += ")"
             else:
-                query += " OR post.info subreddit = ?"
+                query += " OR post_info.subreddit = ? COLLATE NOCASE"
     
     params = tuple(params)
     r = c.execute(query, params)
     word_count = r.fetchall()
-    print(word_count)
+    word_count = word_count[0][0]
+    db.close()
     return word_count
     
     
 
 def compute_word_as_percentage_of_all_words(start_epoch_time, end_epoch_time, colleges, word):
+
     word_count_all = compute_all_words_of_given_time_period(start_epoch_time, end_epoch_time, colleges)
     word_count = compute_selected_word_of_given_time_period(start_epoch_time, end_epoch_time, colleges, word)
-
-    word_percentage = (word_count/word_count_all) * 100
+    if word_count_all == 0:
+        word_percentage = 0
+    else:
+        word_percentage = (word_count/word_count_all) * 100
     return word_percentage
 
 
@@ -112,11 +122,11 @@ def compute_epoch_times(epoch_start_date, epoch_end_date, data_points):
     difference = int(epoch_end_date) - int(epoch_start_date)
     difference_between_datapoints = difference / data_points
 
-    next_date = int(epoch_start_date) + difference
+    next_date = int(epoch_start_date) + difference_between_datapoints
     data_point_times = [int(epoch_start_date), next_date]
 
     for i in range(data_points - 2):
-        next_date = next_date + difference
+        next_date = next_date + difference_between_datapoints
         data_point_times.append(next_date)
     
     return data_point_times
@@ -134,6 +144,7 @@ def compute_word_prevalence(user_input):
         The start_date and end_date entered as input for "time_frame"
         will be in the following form: MM/DD/YY
     """
+
     start_date, end_date = user_input["time frame"]
     epoch_start_date = convert_date_time_to_epoch_time(start_date)
     epoch_end_date = convert_date_time_to_epoch_time(end_date)
@@ -150,18 +161,19 @@ def compute_word_prevalence(user_input):
         range_of_times.append(range_of_one_time)
     
     word_percentages = []
-    colleges = user_input["college"]
+    colleges = []
+    if "college" in user_input:
+        colleges = user_input["college"]
     for range_of_one_time in range_of_times:
         starting_index, ending_index = range_of_one_time
         if range_of_one_time != range_of_times[-1]:
             data_point_time = tuple(data_point_times[starting_index: ending_index + 1])
         else:
             data_point_time = tuple(data_point_times[starting_index:])
-        word_percentage = compute_word_as_percentage_of_all_words(epoch_start_date, epoch_end_date, colleges, user_input["word"])
+        starting_index, ending_index = data_point_time
+        word_percentage = compute_word_as_percentage_of_all_words(starting_index, ending_index, colleges, user_input["word"])
         word_percentages.append(word_percentage)
 
-
-    db.close()
     return word_percentages
 
 
