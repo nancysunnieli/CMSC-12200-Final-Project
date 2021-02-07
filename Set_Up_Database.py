@@ -1,7 +1,6 @@
 import sqlite3
 import pandas as pd
 
-
 def create_words_csv():
     """
     This function retrieves the texts from the posts, as well
