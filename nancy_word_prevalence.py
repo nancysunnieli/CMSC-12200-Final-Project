@@ -217,6 +217,8 @@ def compute_word_prevalence(user_input):
     Outputs:
         word_percentages (list of floats): percent of time that the word shows up
                                             in each of the time periods
+        converted_times (list of strings): list of intervals of times
+        user_input["word"] (string): desired word to return
     """
 
     start_date, end_date = user_input["time frame"]
