@@ -194,10 +194,9 @@ def compute_epoch_times(epoch_start_date, epoch_end_date, data_points):
     next_date = int(epoch_start_date) + difference_between_datapoints
     data_point_times = [int(epoch_start_date), next_date]
 
-    for i in range(data_points - 2):
+    for i in range(data_points - 1):
         next_date = next_date + difference_between_datapoints
         data_point_times.append(next_date)
-    
     return data_point_times
 
 
@@ -225,14 +224,14 @@ def compute_word_prevalence(user_input):
     epoch_start_date = convert_date_time_to_epoch_time(start_date)
     epoch_end_date = convert_date_time_to_epoch_time(end_date)
 
-    data_points = user_input["data points"] + 1
+    data_points = user_input["data points"]
     data_point_times = compute_epoch_times(epoch_start_date, epoch_end_date, data_points)
 
     i = 0
     # contains range of indexes
     range_of_times = []
 
-    for i in range(data_points - 1):
+    for i in range(data_points):
         range_of_one_time = (i, i+1)
         range_of_times.append(range_of_one_time)
     
@@ -280,7 +279,7 @@ def create_graph(user_input):
 
     plt.xticks(rotation = 90, fontsize = 10)
 
-    plt.xlabel("time period (" + converted_times[0][2:10] +" to " + converted_times[-1][2:10] + ")")
+    plt.xlabel("time period (" + converted_times[0][2:10] +" to " + converted_times[-1][-12:-2] + ")")
     plt.ylabel("percentage use of word")
 
     plt.title("Percentage use of (" + word + ") over time")
