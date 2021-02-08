@@ -1,0 +1,10 @@
+<nav>
+    <ul>
+        <li> {% block nav-home %} <a href="{% url 'home' %}">Home</a>{% endblock %} </li>
+        <li> {% block nav-about %} <a href = "{% url 'about' %}" >About</a>{% endblock %} </li>
+        <li> {% block nav-similarity%} <a href = "{% url 'similarity' %}">Similarity</a>{% endblock %} </li>
+        <li> {% block nav-keywords %} <a href = "{% url 'top_keywords' %}">Top Keywords</a>{% endblock %} </li>
+        <li> {% block nav-upvotes %} <a href = "{% url 'up_votes' %}">Up Votes</a>{% endblock %} </li>
+        <li> {% block nav-wordprevalence %} <a href = "{% url 'word_prevalence' %}">Word Prevalence</a>{% endblock %} </li>
+    </ul>
+</nav>
