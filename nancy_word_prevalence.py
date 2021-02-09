@@ -275,6 +275,7 @@ def create_graph(user_input):
     x = converted_times
     y = word_percentages
 
+    fig = plt.figure()
     plt.plot(x, y)
 
     plt.xticks(rotation = 90, fontsize = 10)
@@ -287,4 +288,6 @@ def create_graph(user_input):
     plt.tight_layout()
     
     plt.show()
+
+    return fig
 
