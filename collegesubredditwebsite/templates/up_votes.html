@@ -1,3 +1,14 @@
 {% extends 'base.html' %}
-<h1>Hello world</h1>
-<p> This is a template</p>
+{% block content %}
+
+Up Votes Analysis<br><br>
+
+Use this form to analyze upvotes in subreddits!<br><br>
+
+<form method = "GET">
+    <input type = "text" name = "Time Frame" placeholder = "Specified Time Frame"><br><br>
+    <input type = "text" name = "College" placeholder = "College (Optional)"><br><br>
+<input type="submit" value="Submit">
+</form>
+
+{% endblock %}

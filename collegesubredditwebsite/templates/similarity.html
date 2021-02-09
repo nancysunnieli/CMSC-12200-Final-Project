@@ -1,3 +1,14 @@
 {% extends 'base.html' %}
-<h1>Hello world</h1>
-<p> This is a template</p>
+{% block content %}
+
+Similarity Analysis<br><br>
+
+Use this form to analyze how similar word usage across different colleges are for given time frames!<br><br>
+
+<form method = "GET">
+    <input type = "text" name = "Time Frame" placeholder = "Specified Time Frame"><br><br>
+    <input type = "text" name = "College" placeholder = "College (Optional)"><br><br>
+<input type="submit" value="Submit">
+</form>
+
+{% endblock %}

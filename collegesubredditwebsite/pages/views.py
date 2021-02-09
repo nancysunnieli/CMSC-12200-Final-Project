@@ -19,3 +19,6 @@ def similarity_view(request, *args, **kwargs):
 
 def up_votes_view(request, *args, **kwargs):
     return render(request, "up_votes.html", {})
+
+def submit(request):
+    info = request.POST['info']
