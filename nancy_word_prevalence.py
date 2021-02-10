@@ -287,7 +287,7 @@ def create_graph(user_input):
 
     plt.tight_layout()
     
-    plt.show()
+    #plt.show()
 
     return fig
 
