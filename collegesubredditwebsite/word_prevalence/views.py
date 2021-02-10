@@ -31,11 +31,21 @@ def graphic(res):
 class SearchForm(forms.Form):
     start_date = forms.CharField(
         label='Start Date',
-        help_text='In the form: MM/DD/YY',
+        help_text=("""In the form: MM/DD/YY.
+         Earliest date for each college is as follows: 
+         Caltech: 04/14/11,
+          Harvard: 09/13/19,
+           JHU: 07/13/20,
+            MIT: 10/07/19,
+             Princeton: 04/01/15,
+              Stanford: 08/24/20,
+               UChicago: 07/30/20,
+                UPenn: 10/05/20,
+                 Yale: 06/28/18"""),
         required=True)
     end_date = forms.CharField(
         label='End Date',
-        help_text='In the form: MM/DD/YY',
+        help_text=("In the form: MM/DD/YY"),
         required=True)
     data_points = forms.IntegerField(
         label='Data Points',
@@ -43,7 +53,8 @@ class SearchForm(forms.Form):
         required=True)
     college = forms.CharField(
         label='College',
-        help_text='e.g. Harvard',
+        help_text=("""e.g. UChicago; If you want to do multiple colleges, 
+        separate the name of the colleges by a space"""),
         required=False)
     word = forms.CharField(
         label = 'Word',
@@ -68,7 +79,10 @@ def word_prevalence_view(request):
                 args['data points'] = data_points
             college = form.cleaned_data['college']
             if college:
-                args['college'] = [form.cleaned_data['college']]
+                args['college'] = []
+                college = college.split()
+                for college in college:
+                    args['college'].append(college)
             word = form.cleaned_data['word']
             if word:
                 args['word'] = word
