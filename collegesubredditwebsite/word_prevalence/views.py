@@ -1,5 +1,6 @@
 """
 References: 
+https://www.youtube.com/watch?v=F5mRW0jo-U4
 https://stackoverflow.com/questions/61936775/how-to-pass-matplotlib-graph-in-django-template
 PA3 from CMSC 12200
 """
