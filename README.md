@@ -20,64 +20,10 @@ the same college across time periods
 percentage of total words over time
 - It will also analyze upvotes
 
-Data Sources We Plan to Use :
-HTML and API from subreddit links
-
-Helpful Resources:
-https://nycdatascience.com/blog/student-works/web-scraping-reddit-analyzing
--user-behavior-and-top-content-from-a-marketing-perspective/?fbclid=IwAR
-0_Tj_xhSY6nXfLOMoTeewchjOmp-Y_sCWC_i4fq-aq8NRg5kdR2ZjQL9c
-https://www.datacamp.com/community/tutorials/wordcloud-python?fbclid=I
-wAR2uJhVRDPQ1aH0FeS_9FiZfDsGL7VlTQd_FVeKba064QCI8DTQwTu7
-RvEU
-
-Lists of Tasks to Complete and Timeline for Completing them:
-Each of us is responsible for one of the above tasks.
-Nancy: Analyzing word prevalence over time
-Evan/Sarah: Percentage Similarities/ Top Keywords
-Jingwen: Analyzing upvotes
-
-Week 4
-- Presentation
-
-Week 5
-- Collect data (all ten schools)
-- Research characteristics of database that we will need to accomplish each of
-our tasks
-- Have meeting about this, and discuss how best to proceed in creating
-database (what characteristics will the tables have? How will we be
-representing the data?)
-- Begin building database
-
-Week 6
-- Create algorithm to clean data (for one school)
-- Create corpus of insignificant/repetitive words (from one school, limited
-data)
-- Set up database for one school
-- Get database working for one school, so that the method can be applied to
-the rest of the data
-- Clean remaining data and add to database
-- THE DATABASE SHOULD BE FINISHED AT THE END OF WEEK 6
-
-Week 7-8
-- Each team member works on their designated task separately
-- Then, we will integrate all the programs so that it runs cohesively
-
-
-DATA INFO:
-
-Caltech:  April 14, 2011
-Harvard: September 13, 2019
-JHU: July 13, 2020 
-MIT: October 7, 2019 
-Princeton: April 1, 2015
-Stanford: August 24, 2020
-UChicago: July 30, 2020
-UPenn: December 5, 2020
-Yale: June 28, 2018
-
-
-
+WEEK 6-7:
+Sarah, Evan, and Jingwen work on their tasks and finish them
+WEEK 8:
+Nancy integrates their tasks with the website. After this, we will submit the project
 
 
 To run the program:<br /><br />
