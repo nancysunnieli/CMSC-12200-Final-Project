@@ -32,7 +32,7 @@ class SearchForm(forms.Form):
     start_date = forms.CharField(
         label='Start Date',
         help_text=("""In the form: MM/DD/YY.
-         Earliest date for each college is as follows: 
+         Earliest date for each college is as follows:
          Caltech: 04/14/11,
           Harvard: 09/13/19,
            JHU: 07/13/20,

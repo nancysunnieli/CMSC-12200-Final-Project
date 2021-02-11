@@ -165,8 +165,13 @@ def compute_word_as_percentage_of_all_words(start_epoch_date, end_epoch_date, co
                                  was used during the time period.
     """
 
-    word_count_all = compute_all_words_of_given_time_period(start_epoch_date, end_epoch_date, colleges)
-    word_count = compute_selected_word_of_given_time_period(start_epoch_date, end_epoch_date, colleges, word)
+    word_count_all = compute_all_words_of_given_time_period(start_epoch_date,
+                                                             end_epoch_date,
+                                                              colleges)
+    word_count = compute_selected_word_of_given_time_period(start_epoch_date,
+                                                             end_epoch_date,
+                                                              colleges,
+                                                               word)
     if word_count_all == 0:
         word_percentage = 0
     else:
@@ -248,7 +253,10 @@ def compute_word_prevalence(user_input):
             data_point_time = tuple(data_point_times[starting_index:])
         data_point_intervals.append(data_point_time)
         starting_index, ending_index = data_point_time
-        word_percentage = compute_word_as_percentage_of_all_words(starting_index, ending_index, colleges, user_input["word"])
+        word_percentage = compute_word_as_percentage_of_all_words(starting_index,
+                                                                  ending_index,
+                                                                   colleges,
+                                                                    user_input["word"])
         word_percentages.append(word_percentage)
 
     converted_times = convert_epoch_time_to_date_time(data_point_intervals)
@@ -280,14 +288,20 @@ def create_graph(user_input):
 
     plt.xticks(rotation = 90, fontsize = 10)
 
-    plt.xlabel("time period (" + converted_times[0][2:10] +" to " + converted_times[-1][-12:-2] + ")")
+    plt.xlabel("time period (" + converted_times[0][2:10]
+                 +" to " + converted_times[-1][-12:-2] + ")")
     plt.ylabel("percentage use of word")
 
     plt.title("Percentage use of (" + word + ") over time")
 
     plt.tight_layout()
     
+
+    # Comment this in if you want to run this program from
+    # ipython3 instead of the website
     #plt.show()
 
+    # Comment this out if you want to run this program
+    # from ipython3 instead of the website
     return fig
 
