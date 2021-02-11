@@ -1,29 +1,11 @@
-Name of Group: JSEN
+Name of Group: JSEN<br /><br />
 
-Group Members: Sarah Zhang, Evan Xiang, Jingwen Zhang, Nancy Li
-Description of Project: Scraping college subreddits on Reddit and creating lists of
-most popular keywords from different colleges. Users enter the college, time
-frame, and task they want accomplished. The scope of the project will be limited to
-the ten top colleges according to USNews.
+Group Members: Sarah Zhang, Evan Xiang, Jingwen Zhang, Nancy Li<br /><br />
 
-Goals of Project:
-- The goal is to be able to scrape college subreddits
-- It will return most popular keywords/phrases from the subreddits for a given
-time period
-- This will give us an idea of the interests of the student body at a
-particular college during a particular time period.
-- It will also compare percentage similarities across colleges
-- This same functionality can also compare percentage similarities of
-the same college across time periods
-- It will also analyze word prevalence over time
-- It can create a graph that will show the word prevalence as a
-percentage of total words over time
-- It will also analyze upvotes
-
-WEEK 6-7:
-Sarah, Evan, and Jingwen work on their tasks and finish them
-WEEK 8:
-Nancy integrates their tasks with the website. After this, we will submit the project
+WEEK 6-7:<br /><br />
+Sarah, Evan, and Jingwen work on their tasks and finish them<br /><br />
+WEEK 8:<br /><br />
+Nancy integrates their tasks with the website. After this, we will submit the project<br /><br />
 
 
 To run the program:<br /><br />
@@ -51,4 +33,6 @@ Description of files in this repository: <br />
 
 4.) nancy_word_prevalence.py: this was the program used to create the word prevalence graphs  <br /><br />
 
-5.) collegesubredditwebsite directory: This contains all the necessary files for the website.  
+5.) collegesubredditwebsite directory: This contains all the necessary files for the website.  <br /><br />
+
+6.) Project_Proposal.pdf and edited_plan.pdf contain the overview and schedule of the project.
