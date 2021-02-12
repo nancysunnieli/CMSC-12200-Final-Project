@@ -60,6 +60,11 @@ for school in list_of_schools:
                 "unique_post_id": post["data"]["name"]
             }, ignore_index = True)
         last_post = post["data"]["name"]
+    
+    # This creates a separate csv for every school
+    # To create "all_raw_data.csv", delete the following two lines
+    # and add the following line of code outside of the for loop:
+    # df.to_csv("all_raw_data.csv", index = False, header = True)
     df.to_csv(school + "_raw_data.csv", index = False, header = True)
     df = pd.DataFrame()
 
