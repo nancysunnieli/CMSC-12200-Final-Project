@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 
 
-from pages.views import (home_view, about_view, top_keywords_view, up_votes_view)
+from pages.views import (home_view, about_view)
 from word_prevalence.views import word_prevalence_view
 from similarity.views import similarity_view
+from top_keywords.views import top_keywords_view
+from up_votes.views import up_votes_view
 
 urlpatterns = [
     path('', home_view, name = 'home1'),

@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
 Similarity Analysis<br><br>
-
 Use this form to analyze how similar word usage across different colleges are for given time frames!<br><br>
 
 <form method = "GET">
-    <input type = "text" name = "Time Frame" placeholder = "Specified Time Frame"><br><br>
-    <input type = "text" name = "College" placeholder = "College (Optional)"><br><br>
+
+    {{ form.as_p }}
+
 <input type="submit" value="Submit">
 </form>
+
+{{ result }}
 
 {% endblock %}
