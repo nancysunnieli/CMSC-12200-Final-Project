@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 
 # This task is to analyze scores of each reddit post, 
 # with the end goal to generate a graph that shows the
-# best time to post in a given subreddit group to gain
-# a higher score.
+# best time to post in a given subreddit group to get
+# more traffic.
 
 # !!question: is epoch time a float, integer, or string?
 # !!question: why is college in user_input a list of string?
