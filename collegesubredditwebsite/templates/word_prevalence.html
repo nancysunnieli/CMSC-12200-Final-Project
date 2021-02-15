@@ -5,12 +5,11 @@ Word Prevalence<br><br>
 
 Use this form to create graphs of word usage on subreddits over time!<br><br>
 
-<form method = "POST">
-    <input type = "text" name = "Time Frame" placeholder = "Specified Time Frame"><br><br>
-    <input type = "integer" name = "Data Points" placeholder = "Number of Data Points"><br><br>
-    <input type = "text" name = "College" placeholder = "College (Optional)"><br><br>
-    <input type = "text" name = "Word" placeholder = "Keyword"><br><br>
+<form method = "GET">
+
+    {{ form.as_p }}
+
 <input type="submit" value="Submit">
 </form>
-
+<img src="data:image/png;base64,{{ graphic|safe }}">
 {% endblock %}

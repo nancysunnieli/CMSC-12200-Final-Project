@@ -1,8 +1,12 @@
-# reddit APIs
-# references: https://alpscode.com/blog/how-to-use-reddit-api/
-#              https://towardsdatascience.com/how-to-use-the-reddit-api-in-python-5e05ddfd1e5c
+"""
+Data sources:
+reddit APIs
 
-# Requesting a temporary OAuth token from Reddit
+References: https://alpscode.com/blog/how-to-use-reddit-api/
+            https://towardsdatascience.com/how-to-use-the-reddit-api-in-python-5e05ddfd1e5c
+"""
+ # Requesting a temporary OAuth token from Reddit
+
 import requests
 import pandas as pd
 
@@ -27,7 +31,8 @@ requests.get('https://oauth.reddit.com/api/v1/me', headers=headers)
 # Harvard, Princeton, Columbia, MIT, Yale, Stanford, UChicago, UPenn, Caltech, JHU
 
 
-list_of_schools = ["Harvard", "Princeton", "Yale", "MIT", "Stanford", "UChicago", "UPenn", "Caltech", "JHU"]
+list_of_schools = ["Harvard", "Princeton", "Yale", "MIT",
+                     "Stanford", "UChicago", "UPenn", "Caltech", "JHU"]
 
 
 
@@ -55,6 +60,11 @@ for school in list_of_schools:
                 "unique_post_id": post["data"]["name"]
             }, ignore_index = True)
         last_post = post["data"]["name"]
+    
+    # This creates a separate csv for every school
+    # To create "all_raw_data.csv", delete the following two lines
+    # and add the following line of code outside of the for loop:
+    # df.to_csv("all_raw_data.csv", index = False, header = True)
     df.to_csv(school + "_raw_data.csv", index = False, header = True)
     df = pd.DataFrame()
 
