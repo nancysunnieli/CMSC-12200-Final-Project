@@ -18,6 +18,9 @@ STOP_WORDS = ['a', 'also', 'an', 'and', 'are', 'as', 'at', 'be',
                 'such', 'that', 'the', 'their', 'this', 'through', 'to',
                 'we', 'were', 'which', 'will', 'with', 'yet', 'http']
 
+# When processing tweets, words w/ a prefix that appears in this list
+# should be ignored.
+STOP_PREFIXES = ("@", "#", "http", "&amp", "\n\n")
 
 def process_database(school_file):
     '''
@@ -26,7 +29,7 @@ def process_database(school_file):
     Output: lst of post dictionaries (lst)
     '''
     post_lst = []
-    with open(school) as csv_file:
+    with open(school_file) as csv_file:
         for row in csv.DictReader(csv_file, skipinitialspace = True):
             row_dict = {key : value for key, value in row.items()}
             post_lst.append(row_dict)
@@ -35,8 +38,9 @@ def process_database(school_file):
 
 def delete_stop_words():
     '''
-    Given list of dictionaries, delete the STOP words listed at top of file
+    Given list of dictionaries, delete the STOP words and STOP prefixes 
+    listed at top of file from the posts
     Input: list of dict
     Output:
-        list of 
+        list of edited dict
     '''
