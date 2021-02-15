@@ -3,7 +3,6 @@
 ##################### MY SALIENCY CODE FROM CS121 PA3 #####################
 
 import math
-from util import sort_count_pairs
 
 def count_tokens(tokens):
     '''
@@ -139,3 +138,24 @@ def find_idf_score(docs):
         idf_score.append(math.log( N / count))
     idf_final_dict = dict(zip(unique_values_list, idf_score))
     return idf_final_dict
+
+def sort_count_pairs(l):
+    '''
+    Sort pairs using the second value as the primary sort key and the
+    first value as the seconary sort key.
+
+    Inputs:
+       l: list of pairs.
+
+    Returns: list of key/value pairs
+
+    Example use:
+    In [1]: import util
+
+    In [2]: util.sort_count_pairs([('D', 5), ('C', 2), ('A', 3), ('B', 2)])
+    Out[2]: [('D', 5), ('A', 3), ('B', 2), ('C', 2)]
+
+    In [3]: util.sort_count_pairs([('C', 2), ('A', 3), ('B', 7), ('D', 5)])
+    Out[3]: [('B', 7), ('D', 5), ('A', 3), ('C', 2)]
+    '''
+    return list(sorted(l, key=cmp_to_key(cmp_count_tuples)))
