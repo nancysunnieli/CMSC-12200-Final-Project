@@ -8,10 +8,8 @@ from util import sort_count_pairs
 def count_tokens(tokens):
     '''
     Counts each distinct token (entity) in a list of tokens
-
     Inputs:
         tokens (list): list of tokens (must be immutable)
-
     Returns:
         token_count (dict): dictionary that maps tokens to counts
     '''
@@ -27,11 +25,9 @@ def count_tokens(tokens):
 def find_top_k(tokens, k):
     '''
     Find the k most frequently occuring tokens
-
     Inputs:
         tokens (list): list of tokens (must be immutable)
         k (int): a non-negative integer
-
     Returns: list of the top k tokens ordered by count, larger first
     '''
     #Error checking (DO NOT MODIFY)
