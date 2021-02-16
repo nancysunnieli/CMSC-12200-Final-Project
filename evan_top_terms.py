@@ -68,9 +68,9 @@ def ignore_stop_words(redd_post, stop):
     split_post = str.split(redd_post)
     for i in split_post:
         word = i.strip(PUNCTUATION)
-        if word.startswith(STOP_PREFIXES) == False:
+        if not word.startswith(STOP_PREFIXES):
             if word != '':
-                if stop == True:
+                if stop:
                     if word not in STOP_WORDS:
                         post_processed_text.append(word)
                 else:
