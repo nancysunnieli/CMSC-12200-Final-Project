@@ -1,6 +1,6 @@
-# This task is to return the similarity in top terms
-# between two schools in a given period of time
-# as a percentage.
+# This task is to return the percent similarity in top word usage
+# between two schools. The user specifies the schools, start and end
+# dates, and the number of top terms to do the comparison on.
 
 import nancy_word_prevalence as nwp
 import evan_top_terms as ett
