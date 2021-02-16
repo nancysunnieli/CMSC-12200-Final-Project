@@ -21,13 +21,13 @@ import matplotlib.pyplot as plt
 
 # When processing posts, ignore these words
 STOP_WORDS = ['a', 'also', 'an', 'and', 'are', 'as', 'at', 'be',
-                'but', 'by', 'course', 'for', 'from', 'how', 'I',
+                'but', 'by', 'for', 'from', 'how', 'i',
                 'in', 'include', 'is', 'not', 'of', 'on', 'or', 's', 'so',
                 'such', 'that', 'the', 'their', 'this', 'through', 'to',
                 'we', 'were', 'which', 'will', 'with', 'yet', 'if', 'does',
                 'was']
 
-# When processing tweets, words w/ a prefix that appears in this list
+# When processing posts, words w/ a prefix that appears in this list
 # should be ignored.
 STOP_PREFIXES = ("@", "#", "http", "&amp", "\n\n")
 
@@ -158,6 +158,19 @@ def find_top_k_ngrams(school_name, n, k, start_time='01/01/00', end_time='03/01/
     return final_lst
 
 def create_word_cloud(school_file, n, k, start_time, end_time, ratio_min, ratio_max):
+    """
+    This function creates a word cloud of the top words.
+    Inputs:
+        school_file (csv): csv file
+        n (int): the number of words in an n-gram
+        k (int): a non-negative integer
+        start_time: MM/DD/YY (str)
+        end_time: MM/DD/YY (str)
+        ratio_min: int
+        ratio_max: int
+    Outputs:
+        wordcloud (onto website)
+    """
     text = find_top_k_ngrams(school_file, n, k, start_time, end_time, ratio_min, ratio_max)
     multiplier = len(text)
     new_text = ""

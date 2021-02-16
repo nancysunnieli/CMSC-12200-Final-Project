@@ -7,7 +7,7 @@ PA3 from CMSC 12200
 
 from django.shortcuts import render
 from django import forms
-#from sarah_word_similarity import compute_percent_similar
+from sarah_word_similarity import compute_percent_similar
 
 # Create your views here.
 
@@ -39,7 +39,7 @@ class SearchForm(forms.Form):
         help_text = 'e.g. Caltech',
         required=True)
     ngram = forms.IntegerField(
-        label = 'Amount of words in n gram',
+        label = 'Amount of key words',
         help_text = 'e.g. 5',
         required=True
     )
@@ -63,8 +63,8 @@ def similarity_view(request):
                 college2 = form.cleaned_data['college2']
             if form.cleaned_data['ngram']:
                 n = form.cleaned_data['ngram']
-            #res = compute_percent_similar(college1, college2,
-                                          #start_date, end_date, n)
+            res = compute_percent_similar(college1, college2,
+                                          start_date, end_date, n)
     # Handle different responses of res
     if res is None:
         context['result'] = None

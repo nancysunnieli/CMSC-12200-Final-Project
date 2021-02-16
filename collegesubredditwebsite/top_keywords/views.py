@@ -41,11 +41,11 @@ class SearchForm(forms.Form):
                UChicago: 07/30/20,
                 UPenn: 10/05/20,
                  Yale: 06/28/18"""),
-        required=True)
+        required=False)
     end_date = forms.CharField(
         label='End Date',
         help_text=("In the form: MM/DD/YY"),
-        required=True)
+        required=False)
     number_of_words_n_gram = forms.IntegerField(
         label='Number of Words in N-Gram',
         help_text='e.g. 2',
@@ -58,15 +58,15 @@ class SearchForm(forms.Form):
         label = 'Number of Key Words',
         help_text = 'e.g. 5',
         required=True)
-    minimum_ratio = forms.FloatField(
+    minimum_ratio = forms.IntegerField(
         label = 'Minimum Ratio',
-        help_text = 'e.g. 0.1',
-        required=True
+        help_text = 'e.g. 0',
+        required=False
     )
-    maximum_ratio = forms.FloatField(
+    maximum_ratio = forms.IntegerField(
         label = 'Maximum Ratio',
-        help_text = 'e.g. 0.5',
-        required=True
+        help_text = 'e.g. 10',
+        required=False
     )
 
 def top_keywords_view(request):
@@ -78,16 +78,28 @@ def top_keywords_view(request):
         form = SearchForm(request.GET)
         context["form"] = form
         if form.is_valid():
-            start_time = form.cleaned_data['start_date']
-            end_time = form.cleaned_data['end_date']
+            if form.cleaned_data['start_date']:
+                start_time = form.cleaned_data['start_date']
+            else:
+                start_time = '01/01/00'
+            if form.cleaned_data['end_date']:
+                end_time = form.cleaned_data['end_date']
+            else:
+                end_time = '03/01/21'
             n = form.cleaned_data['number_of_words_n_gram']
             k = form.cleaned_data['number_of_key_words']
-            school_file = form.cleaned_data['college'] + "_raw_data.csv"
-            ratio_min = form.cleaned_data['minimum_ratio']
-            ratio_max = form.cleaned_data['maximum_ratio']
+            school = form.cleaned_data['college']
+            if form.cleaned_data['minimum_ratio']:
+                ratio_min = form.cleaned_data['minimum_ratio']
+            else:
+                ratio_min = 0
+            if form.cleaned_data['maximum_ratio']:
+                ratio_max = form.cleaned_data['maximum_ratio']
+            else:
+                ratio_max = 500
 
-            res = find_top_k_ngrams(school_file, n, k, start_time, end_time, ratio_min, ratio_max)
-            wordcloud = create_word_cloud(school_file, n, k, start_time, end_time, ratio_min, ratio_max)
+            res = find_top_k_ngrams(school, n, k, start_time, end_time, ratio_min, ratio_max)
+            wordcloud = create_word_cloud(school, n, k, start_time, end_time, ratio_min, ratio_max)
     # Handle different responses of res
     if res is None:
         context['result'] = None
