@@ -51,17 +51,17 @@ def compute_percent_similar(school_1, school_2, start_date, end_date, k):
 
     Returns: float
     '''
-    start_epoch_date = nwp.convert_date_time_to_epoch_time(start_date)
-    end_epoch_date = nwp.convert_date_time_to_epoch_time(end_date)
-
-    top_k_1 = ett.find_top_k_ngrams(school_1, 1, k, start_date, end_date, ratio_min, ratio_max)
-    top_k_2 = ett.find_top_k_ngrams(school_2, 1, k, start_date, end_date, ratio_min, ratio_max)
+    top_k_1 = ett.find_top_k_ngrams(school_1, 1, k, start_date, end_date)
+    top_k_2 = ett.find_top_k_ngrams(school_2, 1, k, start_date, end_date)
     overlap = []
 
     for word in top_k_1:
         if word in top_k_2:
             overlap.append(word)
 
+    start_epoch_date = nwp.convert_date_time_to_epoch_time(start_date)
+    end_epoch_date = nwp.convert_date_time_to_epoch_time(end_date)
+    
     total_percentage_1, top_percentages_1 = compute_percentages(overlap,
                                                         school_1,
                                                         start_epoch_date,
