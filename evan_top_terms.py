@@ -107,6 +107,7 @@ def return_ngrams(redd_post, n, start_time, end_time, ratio_min, ratio_max):
             return n_grams_list
     return []
 
+
 def all_ngrams(redd_posts, n, start_time, end_time, ratio_min, ratio_max):
     '''
     For a dictonary of Reddit posts, this function 
@@ -127,6 +128,7 @@ def all_ngrams(redd_posts, n, start_time, end_time, ratio_min, ratio_max):
         all_ngrams_list.extend(return_ngrams(post, n, start_time, end_time,
                                             ratio_min, ratio_max))
     return all_ngrams_list
+
 
 #this is the final function we call to get list of k-elements each comprising of n words
 def find_top_k_ngrams(school_file, n, k, start_time, end_time, ratio_min, ratio_max):
