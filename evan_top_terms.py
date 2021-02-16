@@ -6,7 +6,7 @@ This task is to return the top k n-grams w/ the given parameters by the user bei
 
     4) the start and end time range you want to comb thru,
             (optional, assume all time otherwise)
-    5) and the upote/downvote ratio (optional)
+    5) and the upote/downvote score (optional)
 '''
 
 import csv
