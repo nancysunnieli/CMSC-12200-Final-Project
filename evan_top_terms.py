@@ -134,7 +134,7 @@ def all_ngrams(redd_posts, n, start_time, end_time, ratio_min, ratio_max):
 
 
 #this is the final function we call to get list of k-elements each comprising of n words
-def find_top_k_ngrams(school_name, n, k, start_time, end_time, ratio_min, ratio_max):
+def find_top_k_ngrams(school_name, n, k, start_time='01/01/00', end_time='03/01/21', ratio_min=0, ratio_max=500):
     '''
     Find k most frequently occurring n-grams
     Inputs:
