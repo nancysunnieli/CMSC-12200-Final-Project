@@ -66,8 +66,8 @@ def ignore_stop_words(redd_post, stop):
                         have stop words or prefixes)
     '''
     post_processed_text = []
-    redd_post = redd_post["text"]
-    split_post = str.split(redd_post)
+    reddit_text = redd_post["text"]
+    split_post = str.split(reddit_text)
     for i in split_post:
         word = i.strip(PUNCTUATION)
         if not word.startswith(STOP_PREFIXES):
@@ -100,36 +100,39 @@ def return_ngrams(redd_post, stop, n):
     return n_grams_list
 
 
-def all_ngrams(redd_posts, stop, n):
+def all_ngrams(school_file, stop, n):
     '''
     For a dictonary of Reddit posts, this function 
     creates a list of all its n-grams
     Inputs:
-        redd_posts (list): a list of dicts
+        school_file (csv): csv file
         stop (bool): whether to consider stop words or not
         n: the number of words in an n-gram
     Returns:
         all_ngrams_list: a list of all n-grams
     '''
     all_ngrams_list = []
+    redd_posts = process_database(school_file)
     for post in redd_posts:
         all_ngrams_list.extend(return_ngrams(post, 
                             stop, n))
     return all_ngrams_list
 
 #this is the final function we call
-def find_top_k_ngrams(redd_posts, n, k):
+def find_top_k_ngrams(school_file, n, k):
     '''
     Find k most frequently occurring n-grams
     Inputs:
-        redd_posts (list of dict): a list of Reddit posts
+        school_file (csv): csv file
         n (int): the number of words in an n-gram
         k (int): a non-negative integer
     Returns: list of n-grams
     '''
+    redd_posts = process_database(school_file)
     return find_top_k(all_ngrams(redd_posts, n), k)
 
 
+#do we even need saliency ?? 
 def find_salient_ngrams(school_file, n, threshold):
     '''
     Find the salient n-grams for each tweet
@@ -146,3 +149,4 @@ def find_salient_ngrams(school_file, n, threshold):
         list_of_list_ngrams.append(return_ngrams(post, 
                                 False, case_sensitive, n))
     return find_salient(list_of_list_ngrams, threshold)
+
