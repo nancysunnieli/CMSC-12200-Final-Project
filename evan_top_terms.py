@@ -10,7 +10,9 @@ This task is to return the top k n-grams w/ the given parameters by the user bei
 '''
 
 import csv
+import sys
 import datetime
+import unicodedata
 # import UChicago_raw_data as uchicago
 from evan_word_saliency import find_top_k, find_min_count, find_salient
 from nancy_word_prevalence import convert_epoch_time_to_date_time
