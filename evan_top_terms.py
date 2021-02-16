@@ -12,6 +12,7 @@ This task is to return the top k n-grams w/ the given parameters by the user bei
 import csv
 # import UChicago_raw_data as uchicago
 from evan_word_saliency import find_top_k, find_min_count, find_salient
+from nancy_word_prevalence import convert_epoch_time_to_date_time
 
 # When processing posts, ignore these words
 STOP_WORDS = ['a', 'also', 'an', 'and', 'are', 'as', 'at', 'be',
@@ -50,18 +51,19 @@ PUNCTUATION = " ".join([chr(i) for i in range(sys.maxunicode)
                         if keep_chr(chr(i))])
 
 
-def ignore_stop_words(redd_posts, stop):
+def ignore_stop_words(redd_post, stop):
     '''
-    Given list of dictionaries, ignore the STOP words and STOP prefixes 
-    listed at top of file from the posts to create an edited ver
+    Given a dictionary, ignore the STOP words and STOP prefixes 
+    listed at top of file from the posts to create an edited dict
     Input:
-        redd_posts (lst): list of dict
+        redd_post: a dict
         stop (bool): whether to consider stop words or not
     Output:
-        list of edited dict items
+        lst of strings (single post text edited to not
+                        have stop words or prefixes)
     '''
     post_processed_text = []
-    redd_post = redd_posts["text"]
+    redd_post = redd_post["text"]
     split_post = str.split(redd_post)
     for i in split_post:
         word = i.strip(PUNCTUATION)
@@ -75,24 +77,22 @@ def ignore_stop_words(redd_posts, stop):
     return post_processed_text
 
 
-def return_ngrams(tweet, stop, case_sensitive, n):
+def return_ngrams(redd_post, stop, n):
     '''
-    Creates a list of cleaned n-gram tuples from a single abridged text tweet
+    Creates a list of cleaned n-gram tuples from a single abridged post
     Inputs:
-        tweet (dict): a single tweet
+        redd_post (dict): a single Reddit post
         stop (bool): whether to consider stop words or not
-        case_sensitive (bool): whether word is case-sensitive or not
         n (int): number of words in an n-grams
     Returns:
         n_grams_list (list): a list of n-grams as n-tuples
     '''
-    abridged_tweet = do_pre_processing(tweet, 
-                                stop, case_sensitive)
+    abridged_post = ignore_stop_words(redd_post, stop)
     n_grams_list = []
-    for i in range(0, len(abridged_tweet) - (n - 1)):
+    for i in range(0, len(abridged_post) - (n - 1)):
         n_gram = []
         for j in range(0, n):
-            n_gram.append(abridged_tweet[(i + j)])
+            n_gram.append(abridged_post[(i + j)])
         n_grams_list.append(tuple(n_gram))
     return n_grams_list
 
@@ -108,37 +108,39 @@ def all_ngrams(redd_posts, stop, n):
     Returns:
         all_ngrams_list: a list of all n-grams
     '''
+    all_ngrams_list = []
+    for post in redd_posts:
+        all_ngrams_list.extend(return_ngrams(post, 
+                            stop, case_sensitive, n))
+    return all_ngrams_list
 
 
-def find_top_k_ngrams(tweets, n, k):
+def find_top_k_ngrams(redd_posts, n, k):
     '''
     Find k most frequently occurring n-grams
-
     Inputs:
-        tweets (list): a list of tweets
+        redd_posts (list): a list of Reddit posts
         n (int): the number of words in an n-gram
-        case_sensitive (bool): a boolean that is True
-                        if the task is case sensitive
         k (int): a non-negative integer
-
     Returns: list of n-grams
     '''
-    return find_top_k(all_ngrams(tweets, 
-                        True, n), k)
+    return find_top_k(all_ngrams(redd_posts, n), k)
 
 
-def find_salient_ngrams(tweets, n, threshold):
+#this is the final function we call
+def find_salient_ngrams(school_lst, n, threshold):
     '''
     Find the salient n-grams for each tweet
     Inputs:
-        tweets (list): a list of tweets
+        school_lst (list): csv file
         n: integer parameter
         case_sensitive: boolean
         threshold (float): parameter
-    Returns: list of sets of strings
+    Returns: list of sets of strings #we want list of strings
     '''
+    school_lst = process_database(tweets)
     list_of_list_ngrams = []
-    for tweet in tweets:
-        list_of_list_ngrams.append(return_ngrams(tweet, 
+    for post in school_lst:
+        list_of_list_ngrams.append(return_ngrams(post, 
                                 False, case_sensitive, n))
     return find_salient(list_of_list_ngrams, threshold)
