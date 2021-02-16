@@ -18,13 +18,13 @@ from nancy_word_prevalence import convert_date_time_to_epoch_time
 
 # When processing posts, ignore these words
 STOP_WORDS = ['a', 'also', 'an', 'and', 'are', 'as', 'at', 'be',
-                'but', 'by', 'course', 'for', 'from', 'how', 'I',
+                'but', 'by', 'for', 'from', 'how', 'i',
                 'in', 'include', 'is', 'not', 'of', 'on', 'or', 's', 'so',
                 'such', 'that', 'the', 'their', 'this', 'through', 'to',
                 'we', 'were', 'which', 'will', 'with', 'yet', 'if', 'does',
                 'was']
 
-# When processing tweets, words w/ a prefix that appears in this list
+# When processing posts, words w/ a prefix that appears in this list
 # should be ignored.
 STOP_PREFIXES = ("@", "#", "http", "&amp", "\n\n")
 
