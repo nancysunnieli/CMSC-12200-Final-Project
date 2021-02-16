@@ -39,7 +39,7 @@ class SearchForm(forms.Form):
         help_text = 'e.g. Caltech',
         required=True)
     ngram = forms.IntegerField(
-        label = 'Amount of key words',
+        label = 'Amount of 1-grams to compare',
         help_text = 'e.g. 5',
         required=True
     )
