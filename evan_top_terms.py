@@ -13,7 +13,7 @@ import csv
 import sys
 import datetime
 import unicodedata
-from evan_word_saliency import find_top_k, find_min_count, find_salient
+from evan_word_saliency import find_top_k, find_salient
 from nancy_word_prevalence import convert_date_time_to_epoch_time
 
 # When processing posts, ignore these words
