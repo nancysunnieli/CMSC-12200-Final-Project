@@ -114,7 +114,7 @@ def all_ngrams(redd_posts, stop, n):
     all_ngrams_list = []
     for post in redd_posts:
         all_ngrams_list.extend(return_ngrams(post, 
-                            stop, case_sensitive, n))
+                            stop, n))
     return all_ngrams_list
 
 #this is the final function we call
