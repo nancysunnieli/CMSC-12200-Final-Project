@@ -15,7 +15,6 @@ import datetime
 import unicodedata
 from evan_word_saliency import find_top_k, find_salient
 from nancy_word_prevalence import convert_date_time_to_epoch_time
-import all_raw_data
 
 # When processing posts, ignore these words
 STOP_WORDS = ['a', 'also', 'an', 'and', 'are', 'as', 'at', 'be',
@@ -32,14 +31,13 @@ STOP_PREFIXES = ("@", "#", "http", "&amp", "\n\n")
 def process_database(school_name):
     '''
     Given a csv database, process all text into a list of dictionaries
-    Input: name
+    Input: school subreddit name
     Output: lst of post dictionaries (lst)
     '''
     post_lst = []
-
-    with open(all_raw_data) as csv_file:
+    with open('all_raw_data.csv') as csv_file:
         for row in csv.DictReader(csv_file, skipinitialspace = True):
-            if row["school"] == school_name:
+            if row["subreddit"] == school_name:
                 row_dict = {key : value for key, value in row.items()}
                 post_lst.append(row_dict)
     return post_lst
