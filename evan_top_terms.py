@@ -95,8 +95,8 @@ def return_ngrams(redd_post, n, start_time, end_time, ratio_min, ratio_max):
     '''
     if ratio_min <= float(redd_post["score"]) <= ratio_max:
         post_time = redd_post["epoch_time"]
-        if float(convert_date_time_to_epoch_time(start_time)) <= float(post_time)
-                            <= float(convert_date_time_to_epoch_time(end_time)):
+        if (float(convert_date_time_to_epoch_time(start_time)) <= float(post_time)
+                             and float(post_time) <= float(convert_date_time_to_epoch_time(end_time))):
             abridged_post = ignore_stop_words(redd_post)
             n_grams_list = []
             for i in range(0, len(abridged_post) - (n - 1)):
