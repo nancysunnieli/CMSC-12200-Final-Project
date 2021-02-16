@@ -86,8 +86,8 @@ def return_ngrams(redd_post, n, start_time, end_time, ratio_min, ratio_max):
         redd_post (dict): a single Reddit post
         stop (bool): whether to consider stop words or not
         n (int): number of words in an n-grams
-        start_time: epoch time (str)
-        end_time: epoch time (str)
+        start_time: MM/DD/YY (str)
+        end_time: MM/DD/YY (str)
         ratio_min: int
         ratio_max: int
     Returns:
@@ -115,8 +115,8 @@ def all_ngrams(redd_posts, n, start_time, end_time, ratio_min, ratio_max):
         school_file (csv): csv file
         stop (bool): whether to consider stop words or not
         n: the number of words in an n-gram
-        start_time: epoch time (str)
-        end_time: epoch time (str)
+        start_time: MM/DD/YY (str)
+        end_time: MM/DD/YY (str)
         ratio_min: int
         ratio_max: int
     Returns:
@@ -136,8 +136,8 @@ def find_top_k_ngrams(school_file, n, k, start_time, end_time, ratio_min, ratio_
         school_file (csv): csv file
         n (int): the number of words in an n-gram
         k (int): a non-negative integer
-        start_time: epoch time (str)
-        end_time: epoch time (str)
+        start_time: MM/DD/YY (str)
+        end_time: MM/DD/YY (str)
         ratio_min: int
         ratio_max: int
     Returns: list of n-grams
