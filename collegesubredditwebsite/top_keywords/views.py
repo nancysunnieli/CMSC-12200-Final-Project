@@ -25,11 +25,11 @@ class SearchForm(forms.Form):
                UChicago: 07/30/20,
                 UPenn: 10/05/20,
                  Yale: 06/28/18"""),
-        required=False)
+        required=True)
     end_date = forms.CharField(
         label='End Date',
         help_text=("In the form: MM/DD/YY"),
-        required=False)
+        required=True)
     number_of_words_n_gram = forms.IntegerField(
         label='Number of Words in N-Gram',
         help_text='e.g. 2',
