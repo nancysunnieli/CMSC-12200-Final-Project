@@ -100,7 +100,7 @@ def return_ngrams(redd_post, stop, n):
     return n_grams_list
 
 
-def all_ngrams(school_file, stop, n):
+def all_ngrams(redd_posts, stop, n):
     '''
     For a dictonary of Reddit posts, this function 
     creates a list of all its n-grams
@@ -112,14 +112,13 @@ def all_ngrams(school_file, stop, n):
         all_ngrams_list: a list of all n-grams
     '''
     all_ngrams_list = []
-    redd_posts = process_database(school_file)
     for post in redd_posts:
         all_ngrams_list.extend(return_ngrams(post, 
                             stop, n))
     return all_ngrams_list
 
 #this is the final function we call
-def find_top_k_ngrams(school_file, n, k):
+def find_top_k_ngrams(school_file, stop, n, k):
     '''
     Find k most frequently occurring n-grams
     Inputs:
@@ -129,7 +128,7 @@ def find_top_k_ngrams(school_file, n, k):
     Returns: list of n-grams
     '''
     redd_posts = process_database(school_file)
-    return find_top_k(all_ngrams(redd_posts, n), k)
+    return find_top_k(all_ngrams(redd_posts, stop, n), k)
 
 
 #do we even need saliency ?? 
