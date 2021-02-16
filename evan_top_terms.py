@@ -1,4 +1,5 @@
 '''
+References: https://www.datacamp.com/community/tutorials/wordcloud-python 
 This task is to return the top k n-grams w/ the given parameters by the user being:
     1) the school name,
     2) the number of words you want to receive back (n-grams),
@@ -15,6 +16,8 @@ import datetime
 import unicodedata
 from evan_word_saliency import find_top_k, find_salient
 from nancy_word_prevalence import convert_date_time_to_epoch_time
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 
 # When processing posts, ignore these words
 STOP_WORDS = ['a', 'also', 'an', 'and', 'are', 'as', 'at', 'be',
@@ -154,20 +157,15 @@ def find_top_k_ngrams(school_name, n, k, start_time='01/01/00', end_time='03/01/
         final_lst.append(final_str)
     return final_lst
 
+def create_word_cloud(school_file, n, k, start_time, end_time, ratio_min, ratio_max):
+    text = find_top_k_ngrams(school_file, n, k, start_time, end_time, ratio_min, ratio_max)
+    multiplier = len(text)
+    new_text = ""
+    for word in text:
+        new_word = (word + " ") * multiplier
+        new_text += new_word
+        multiplier = multiplier - 1
+    
+    wordcloud = WordCloud().generate(new_text)
 
-#do we even need saliency ?? 
-def find_salient_ngrams(school_file, n, threshold):
-    '''
-    Find the salient n-grams for each tweet
-    Inputs:
-        school_file (csv): csv file
-        n: integer parameter
-        threshold (float): parameter
-    Returns: list of sets of strings
-    '''
-    school_lst = process_database(school_file)
-    list_of_list_ngrams = []
-    for post in school_lst:
-        list_of_list_ngrams.append(return_ngrams(post, n))
-    return find_salient(list_of_list_ngrams, threshold)
-
+    return wordcloud

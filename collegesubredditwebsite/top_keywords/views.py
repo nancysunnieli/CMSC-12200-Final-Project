@@ -3,11 +3,27 @@ References:
 https://www.youtube.com/watch?v=F5mRW0jo-U4
 https://stackoverflow.com/questions/61936775/how-to-pass-matplotlib-graph-in-django-template
 PA3 from CMSC 12200
+https://stackoverflow.com/questions/56714856/how-can-i-show-wordcloud-in-html
 """
 
 from django.shortcuts import render
 from django import forms
-from evan_top_terms import find_top_k_ngrams
+from evan_top_terms import find_top_k_ngrams, create_word_cloud
+
+from io import BytesIO
+import base64
+import matplotlib.pyplot as plt
+import urllib
+
+def graphic(res):
+    plt.imshow(res, interpolation = 'bilinear')
+    plt.axis("off")
+    image = BytesIO()
+    plt.savefig(image, format = 'png')
+    image.seek(0)
+    string = base64.b64encode(image.read())
+    image_64 = 'data:image/png;base64,' + urllib.parse.quote(string)
+    return image_64
 
 # Create your views here.
 
@@ -71,10 +87,12 @@ def top_keywords_view(request):
             ratio_max = form.cleaned_data['maximum_ratio']
 
             res = find_top_k_ngrams(school_file, n, k, start_time, end_time, ratio_min, ratio_max)
+            wordcloud = create_word_cloud(school_file, n, k, start_time, end_time, ratio_min, ratio_max)
     # Handle different responses of res
     if res is None:
         context['result'] = None
     else:
         context['result'] = res
+        context["graphic"] = graphic(wordcloud)
 
     return render(request, 'top_keywords.html', context)
