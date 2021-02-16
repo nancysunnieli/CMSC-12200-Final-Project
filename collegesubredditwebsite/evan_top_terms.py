@@ -1,7 +1,5 @@
 '''
-References:
-https://www.datacamp.com/community/tutorials/wordcloud-python
-
+References: https://www.datacamp.com/community/tutorials/wordcloud-python 
 This task is to return the top k n-grams w/ the given parameters by the user being:
     1) the school name,
     2) the number of words you want to receive back (n-grams),
@@ -33,17 +31,18 @@ STOP_WORDS = ['a', 'also', 'an', 'and', 'are', 'as', 'at', 'be',
 # should be ignored.
 STOP_PREFIXES = ("@", "#", "http", "&amp", "\n\n")
 
-def process_database(school_file):
+def process_database(school_name):
     '''
     Given a csv database, process all text into a list of dictionaries
-    Input: csv file
+    Input: school subreddit name
     Output: lst of post dictionaries (lst)
     '''
     post_lst = []
-    with open(school_file) as csv_file:
+    with open('all_raw_data.csv') as csv_file:
         for row in csv.DictReader(csv_file, skipinitialspace = True):
-            row_dict = {key : value for key, value in row.items()}
-            post_lst.append(row_dict)
+            if row["subreddit"] == school_name:
+                row_dict = {key : value for key, value in row.items()}
+                post_lst.append(row_dict)
     return post_lst
 
 
@@ -136,7 +135,7 @@ def all_ngrams(redd_posts, n, start_time, end_time, ratio_min, ratio_max):
 
 
 #this is the final function we call to get list of k-elements each comprising of n words
-def find_top_k_ngrams(school_file, n, k, start_time, end_time, ratio_min, ratio_max):
+def find_top_k_ngrams(school_name, n, k, start_time='01/01/00', end_time='03/01/21', ratio_min=0, ratio_max=500):
     '''
     Find k most frequently occurring n-grams
     Inputs:
@@ -149,7 +148,7 @@ def find_top_k_ngrams(school_file, n, k, start_time, end_time, ratio_min, ratio_
         ratio_max: int
     Returns: list of n-grams
     '''
-    redd_posts = process_database(school_file)
+    redd_posts = process_database(school_name)
     tuple_lst = find_top_k(all_ngrams(redd_posts, n, start_time,
                             end_time, ratio_min, ratio_max), k)
     final_lst = []
@@ -160,7 +159,6 @@ def find_top_k_ngrams(school_file, n, k, start_time, end_time, ratio_min, ratio_
 
 def create_word_cloud(school_file, n, k, start_time, end_time, ratio_min, ratio_max):
     text = find_top_k_ngrams(school_file, n, k, start_time, end_time, ratio_min, ratio_max)
-    print(text)
     multiplier = len(text)
     new_text = ""
     for word in text:
