@@ -114,12 +114,12 @@ def all_ngrams(redd_posts, stop, n):
                             stop, case_sensitive, n))
     return all_ngrams_list
 
-
+#this is the final function we call
 def find_top_k_ngrams(redd_posts, n, k):
     '''
     Find k most frequently occurring n-grams
     Inputs:
-        redd_posts (list): a list of Reddit posts
+        redd_posts (list of dict): a list of Reddit posts
         n (int): the number of words in an n-gram
         k (int): a non-negative integer
     Returns: list of n-grams
@@ -127,18 +127,17 @@ def find_top_k_ngrams(redd_posts, n, k):
     return find_top_k(all_ngrams(redd_posts, n), k)
 
 
-#this is the final function we call
-def find_salient_ngrams(school_lst, n, threshold):
+def find_salient_ngrams(school_file, n, threshold):
     '''
     Find the salient n-grams for each tweet
     Inputs:
-        school_lst (list): csv file
+        school_file (csv): csv file
         n: integer parameter
         case_sensitive: boolean
         threshold (float): parameter
-    Returns: list of sets of strings #we want list of strings
+    Returns: list of sets of strings
     '''
-    school_lst = process_database(tweets)
+    school_lst = process_database(school_file)
     list_of_list_ngrams = []
     for post in school_lst:
         list_of_list_ngrams.append(return_ngrams(post, 
