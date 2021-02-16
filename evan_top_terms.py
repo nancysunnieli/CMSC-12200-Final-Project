@@ -49,7 +49,7 @@ def keep_chr(ch):
     (except #, @, &) and combine them into a single string.
     '''
     return unicodedata.category(ch).startswith('P') and \
-        (ch not in ("#", "@", "&"))
+        (ch not in ("#", "@", "&", "|"))
 
 PUNCTUATION = " ".join([chr(i) for i in range(sys.maxunicode)
                         if keep_chr(chr(i))])
@@ -73,8 +73,10 @@ def ignore_stop_words(redd_post):
         word = i.strip(PUNCTUATION)
         if not word.startswith(STOP_PREFIXES):
             if word != '':
-                if word not in STOP_WORDS:
-                    post_processed_text.append(word)
+                lower_word = str.lower(word)
+                if word not in STOP_WORDS and lower_word not in STOP_WORDS:
+                    if word.find("|") == -1:
+                        post_processed_text.append(word)
     return post_processed_text
 
 
@@ -88,6 +90,7 @@ def return_ngrams(redd_post, n):
     Returns:
         n_grams_list (list): a list of n-grams as n-tuples
     '''
+    # if convert_epoch_time_to_date_time(redd_post) ?? doesnt exactly fit need to fix this part
     abridged_post = ignore_stop_words(redd_post)
     n_grams_list = []
     for i in range(0, len(abridged_post) - (n - 1)):
@@ -96,6 +99,8 @@ def return_ngrams(redd_post, n):
             n_gram.append(abridged_post[(i + j)])
         n_grams_list.append(tuple(n_gram))
     return n_grams_list
+    # else: if time of post does not line up with user request, return []
+    #     return []
 
 
 def all_ngrams(redd_posts, n):
@@ -114,7 +119,7 @@ def all_ngrams(redd_posts, n):
         all_ngrams_list.extend(return_ngrams(post, n))
     return all_ngrams_list
 
-#this is the final function we call
+#this is the final function we call to get list of k-elements each comprising of n words
 def find_top_k_ngrams(school_file, n, k):
     '''
     Find k most frequently occurring n-grams
@@ -122,6 +127,11 @@ def find_top_k_ngrams(school_file, n, k):
         school_file (csv): csv file
         n (int): the number of words in an n-gram
         k (int): a non-negative integer
+        
+        start_time: MM/DD/YY
+        end_time: MM/DD/YY
+        ratio_min: int
+        ratio_max: int
     Returns: list of n-grams
     '''
     redd_posts = process_database(school_file)
