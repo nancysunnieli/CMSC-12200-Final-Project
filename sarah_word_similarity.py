@@ -3,7 +3,7 @@
 # as a percentage.
 
 import nancy_word_prevalence as nwp
-import evan_top_terms as ett #replace with actual name later
+import evan_top_terms as ett
 
 
 def compute_percentages(words, school, start, end):
@@ -32,7 +32,7 @@ def compute_percentages(words, school, start, end):
     return total_percentage, percentages
 
 
-def compute_percent_similar(school_1, school_2, start_date, end_date, n):
+def compute_percent_similar(school_1, school_2, start_date, end_date, k):
     '''
     Given two schools and two dates, computes the percentage overlap
     in the top n terms (1-grams) for that time period.
@@ -47,19 +47,19 @@ def compute_percent_similar(school_1, school_2, start_date, end_date, n):
 
     Inputs: two strings of college names,
             two strings of form "MM/DD/YY",
-            n (integer)
+            k (integer)
 
     Returns: float
     '''
     start_epoch_date = nwp.convert_date_time_to_epoch_time(start_date)
     end_epoch_date = nwp.convert_date_time_to_epoch_time(end_date)
 
-    top_100_1 = ett.top_terms(school_1) # replace with actual function later
-    top_100_2 = ett.top_terms(school_2) # replace with actual function later
+    top_k_1 = ett.find_top_k_ngrams(school_1, 1, k, start_date, end_date, ratio_min, ratio_max)
+    top_k_2 = ett.find_top_k_ngrams(school_2, 1, k, start_date, end_date, ratio_min, ratio_max)
     overlap = []
 
-    for word in top_100_1:
-        if word in top_100_2:
+    for word in top_k_1:
+        if word in top_k_2:
             overlap.append(word)
 
     total_percentage_1, top_percentages_1 = compute_percentages(overlap,
