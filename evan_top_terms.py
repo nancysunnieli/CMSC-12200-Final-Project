@@ -80,30 +80,34 @@ def ignore_stop_words(redd_post):
     return post_processed_text
 
 
-def return_ngrams(redd_post, n):
+def return_ngrams(redd_post, n, ratio_min, ratio_max):
     '''
     Creates a list of cleaned n-gram tuples from a single abridged post
     Inputs:
         redd_post (dict): a single Reddit post
         stop (bool): whether to consider stop words or not
         n (int): number of words in an n-grams
+        ratio_min: int
+        ratio_max: int
     Returns:
         n_grams_list (list): a list of n-grams as n-tuples
     '''
-    # if convert_epoch_time_to_date_time(redd_post) ?? doesnt exactly fit need to fix this part
-    abridged_post = ignore_stop_words(redd_post)
-    n_grams_list = []
-    for i in range(0, len(abridged_post) - (n - 1)):
-        n_gram = []
-        for j in range(0, n):
-            n_gram.append(abridged_post[(i + j)])
-        n_grams_list.append(tuple(n_gram))
-    return n_grams_list
-    # else: if time of post does not line up with user request, return []
-    #     return []
+    if ratio_min <= float(redd_post["score"]) <= ratio_max:
+        # if convert_epoch_time_to_date_time(redd_post) ?? doesnt exactly fit need to fix this part
+        abridged_post = ignore_stop_words(redd_post)
+        n_grams_list = []
+        for i in range(0, len(abridged_post) - (n - 1)):
+            n_gram = []
+            for j in range(0, n):
+                n_gram.append(abridged_post[(i + j)])
+            n_grams_list.append(tuple(n_gram))
+        return n_grams_list
+        # else: if time of post does not line up with user request, return []
+        #     return []
+    else:
+        return []
 
-
-def all_ngrams(redd_posts, n):
+def all_ngrams(redd_posts, n, ratio_min, ratio_max):
     '''
     For a dictonary of Reddit posts, this function 
     creates a list of all its n-grams
@@ -111,23 +115,25 @@ def all_ngrams(redd_posts, n):
         school_file (csv): csv file
         stop (bool): whether to consider stop words or not
         n: the number of words in an n-gram
+        ratio_min: int
+        ratio_max: int
     Returns:
         all_ngrams_list: a list of all n-grams
     '''
     all_ngrams_list = []
     for post in redd_posts:
-        all_ngrams_list.extend(return_ngrams(post, n))
+        all_ngrams_list.extend(return_ngrams(post, n, ratio_min, ratio_max))
     return all_ngrams_list
 
 #this is the final function we call to get list of k-elements each comprising of n words
-def find_top_k_ngrams(school_file, n, k):
+def find_top_k_ngrams(school_file, n, k, start_time, end_time, ratio_min, ratio_max):
     '''
     Find k most frequently occurring n-grams
     Inputs:
         school_file (csv): csv file
         n (int): the number of words in an n-gram
         k (int): a non-negative integer
-        
+
         start_time: MM/DD/YY
         end_time: MM/DD/YY
         ratio_min: int
@@ -135,7 +141,7 @@ def find_top_k_ngrams(school_file, n, k):
     Returns: list of n-grams
     '''
     redd_posts = process_database(school_file)
-    tuple_lst = find_top_k(all_ngrams(redd_posts, n), k)
+    tuple_lst = find_top_k(all_ngrams(redd_posts, n, ratio_min, ratio_max), k)
     final_lst = []
     for i in tuple_lst:
         final_str = ' '.join(i)
@@ -150,14 +156,12 @@ def find_salient_ngrams(school_file, n, threshold):
     Inputs:
         school_file (csv): csv file
         n: integer parameter
-        case_sensitive: boolean
         threshold (float): parameter
     Returns: list of sets of strings
     '''
     school_lst = process_database(school_file)
     list_of_list_ngrams = []
     for post in school_lst:
-        list_of_list_ngrams.append(return_ngrams(post, 
-                                False, case_sensitive, n))
+        list_of_list_ngrams.append(return_ngrams(post, n))
     return find_salient(list_of_list_ngrams, threshold)
 
