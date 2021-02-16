@@ -19,10 +19,11 @@ from nancy_word_prevalence import convert_epoch_time_to_date_time
 
 # When processing posts, ignore these words
 STOP_WORDS = ['a', 'also', 'an', 'and', 'are', 'as', 'at', 'be',
-                'but', 'by', 'course', 'for', 'from', 'how', 'i',
+                'but', 'by', 'course', 'for', 'from', 'how', 'I',
                 'in', 'include', 'is', 'not', 'of', 'on', 'or', 's', 'so',
                 'such', 'that', 'the', 'their', 'this', 'through', 'to',
-                'we', 'were', 'which', 'will', 'with', 'yet']
+                'we', 'were', 'which', 'will', 'with', 'yet', 'if', 'does',
+                'was']
 
 # When processing tweets, words w/ a prefix that appears in this list
 # should be ignored.
@@ -54,7 +55,7 @@ PUNCTUATION = " ".join([chr(i) for i in range(sys.maxunicode)
                         if keep_chr(chr(i))])
 
 
-def ignore_stop_words(redd_post, stop):
+def ignore_stop_words(redd_post):
     '''
     Given a dictionary, ignore the STOP words and STOP prefixes 
     listed at top of file from the posts to create an edited dict
@@ -72,15 +73,12 @@ def ignore_stop_words(redd_post, stop):
         word = i.strip(PUNCTUATION)
         if not word.startswith(STOP_PREFIXES):
             if word != '':
-                if stop:
-                    if word not in STOP_WORDS:
-                        post_processed_text.append(word)
-                else:
+                if word not in STOP_WORDS:
                     post_processed_text.append(word)
     return post_processed_text
 
 
-def return_ngrams(redd_post, stop, n):
+def return_ngrams(redd_post, n):
     '''
     Creates a list of cleaned n-gram tuples from a single abridged post
     Inputs:
@@ -90,7 +88,7 @@ def return_ngrams(redd_post, stop, n):
     Returns:
         n_grams_list (list): a list of n-grams as n-tuples
     '''
-    abridged_post = ignore_stop_words(redd_post, stop)
+    abridged_post = ignore_stop_words(redd_post)
     n_grams_list = []
     for i in range(0, len(abridged_post) - (n - 1)):
         n_gram = []
@@ -100,7 +98,7 @@ def return_ngrams(redd_post, stop, n):
     return n_grams_list
 
 
-def all_ngrams(redd_posts, stop, n):
+def all_ngrams(redd_posts, n):
     '''
     For a dictonary of Reddit posts, this function 
     creates a list of all its n-grams
@@ -113,12 +111,11 @@ def all_ngrams(redd_posts, stop, n):
     '''
     all_ngrams_list = []
     for post in redd_posts:
-        all_ngrams_list.extend(return_ngrams(post, 
-                            stop, n))
+        all_ngrams_list.extend(return_ngrams(post, n))
     return all_ngrams_list
 
 #this is the final function we call
-def find_top_k_ngrams(school_file, stop, n, k):
+def find_top_k_ngrams(school_file, n, k):
     '''
     Find k most frequently occurring n-grams
     Inputs:
@@ -128,7 +125,12 @@ def find_top_k_ngrams(school_file, stop, n, k):
     Returns: list of n-grams
     '''
     redd_posts = process_database(school_file)
-    return find_top_k(all_ngrams(redd_posts, stop, n), k)
+    tuple_lst = find_top_k(all_ngrams(redd_posts, n), k)
+    final_lst = []
+    for i in tuple_lst:
+        final_str = ' '.join(i)
+        final_lst.append(final_str)
+    return final_lst
 
 
 #do we even need saliency ?? 
