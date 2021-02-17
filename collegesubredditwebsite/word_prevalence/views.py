@@ -45,7 +45,7 @@ class SearchForm(forms.Form):
         required=True)
     end_date = forms.CharField(
         label='End Date',
-        help_text=("In the form: MM/DD/YY"),
+        help_text=("In the form: MM/DD/YY. Latest date is 02/16/21."),
         required=True)
     data_points = forms.IntegerField(
         label='Data Points',

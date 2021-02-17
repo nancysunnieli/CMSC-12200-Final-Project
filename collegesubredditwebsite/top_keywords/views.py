@@ -44,7 +44,7 @@ class SearchForm(forms.Form):
         required=False)
     end_date = forms.CharField(
         label='End Date',
-        help_text=("In the form: MM/DD/YY"),
+        help_text=("In the form: MM/DD/YY. Latest date is 02/16/21."),
         required=False)
     number_of_words_n_gram = forms.IntegerField(
         label='Number of Words in N-Gram',
