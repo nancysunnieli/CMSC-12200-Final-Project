@@ -21,6 +21,7 @@ To run the program:<br /><br />
   - Word Prevalence: This outputs a graph of the percentage usage of a given word over time given parameters from the user<br />
   - Similarity: The compares the similarity of two colleges given parameters from the user<br />
   - Upvotes Analysis: This provides an analysis of the upvotes on the posts given parameters from the user<br /><br />
+
 8.) Deactivate the virtual environment by running "deactivate"<br /><br />
   
  
