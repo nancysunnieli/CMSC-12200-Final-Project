@@ -31,7 +31,7 @@ requests.get('https://oauth.reddit.com/api/v1/me', headers=headers)
 # Harvard, Princeton, Columbia, MIT, Yale, Stanford, UChicago, UPenn, Caltech, JHU
 
 
-list_of_schools = ["Harvard", "Princeton", "Yale", "MIT",
+list_of_schools = ["Harvard", "Princeton", "Yale", "MIT", "Columbia",
                      "Stanford", "UChicago", "UPenn", "Caltech", "JHU"]
 
 
@@ -49,7 +49,7 @@ for school in list_of_schools:
                           params= {"limit": "100", "after": last_post})
         for post in r.json()["data"]["children"]:
             df = df.append({
-                "subreddit": post["data"]["subreddit"],
+                "subreddit": (post["data"]["subreddit"]).lower(),
                 "title" : post["data"]["title"],
                 "text": post["data"]["selftext"],
                 "upvote_ratio": post["data"]["upvote_ratio"],

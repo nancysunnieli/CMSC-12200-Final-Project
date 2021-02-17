@@ -52,7 +52,9 @@ class SearchForm(forms.Form):
         required=True)
     college = forms.CharField(
         label='College',
-        help_text=("""e.g. UChicago; If you want to do all colleges, type in All"""),
+        help_text=("""e.g. uchicago. Choices are as follows:
+        uchicago, upenn, yale, caltech, mit, stanford, jhu,
+        princeton, harvard, columbia"""),
         required=True)
     number_of_key_words = forms.IntegerField(
         label = 'Number of Key Words',

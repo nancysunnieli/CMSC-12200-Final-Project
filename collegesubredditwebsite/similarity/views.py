@@ -32,11 +32,15 @@ class SearchForm(forms.Form):
         required=True)
     college1 = forms.CharField(
         label='First College',
-        help_text=("""e.g. UChicago"""),
+        help_text=("""e.g. uchicago. Choices are as follows:
+        uchicago, upenn, yale, caltech, mit, stanford, jhu,
+        princeton, harvard, columbia"""),
         required=True)
     college2 = forms.CharField(
         label = 'Second College',
-        help_text = 'e.g. Caltech',
+        help_text = ("""e.g. uchicago. Choices are as follows:
+        uchicago, upenn, yale, caltech, mit, stanford, jhu,
+        princeton, harvard, columbia"""),
         required=True)
     ngram = forms.IntegerField(
         label = 'Amount of 1-grams to compare',
