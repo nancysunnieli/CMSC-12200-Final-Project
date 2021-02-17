@@ -43,4 +43,5 @@ Description of files in this repository: <br />
 
 9.) collegesubredditwebsite directory: This contains all the necessary files for the website.  <br /><br />
 
-10.) Project_Proposal.pdf and edited_plan.pdf contain the overview and schedule of the project.
+10.) Project_Proposal.pdf and edited_plan.pdf contain the overview and schedule of the project.  <br /><br />
+11.) db.sqlite3 is the database that contains two tables, which are called post_words and post_info. The table post_info contains all the information of the posts. It has the same information as all_raw_data.csv. The table post_words maps words to the unique_post_id that they are from. It has the same information as word_raw_data.csv.  <br /><br />
