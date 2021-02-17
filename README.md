@@ -1,6 +1,6 @@
 Name of Group: JSEN<br /><br />
 
-Group Members: Sarah Zhang, Evan Xiang, Jingwen Zhang, Nancy Li<br /><br />
+Group Members: Sarah Zhang, Evan Xiang, Jingwen Zhang, Nancy Li<br /><br /><br /><br />
 
 To run the program:<br /><br />
 1.) Enter the main directory called "CMSC-12200-Final-Project". To do this, run the follow command: "cd CMSC-12200-Final-Project".<br /><br />
@@ -16,7 +16,7 @@ To run the program:<br /><br />
   - Similarity: The compares the similarity of two colleges given parameters from the user<br />
   - Upvotes Analysis: This provides an analysis of the upvotes on the posts given parameters from the user<br /><br />
 
-8.) Deactivate the virtual environment by running "deactivate"<br /><br />
+8.) Deactivate the virtual environment by running "deactivate"<br /><br /><br /><br />
   
  
 Description of files in this repository: <br />
