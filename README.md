@@ -2,12 +2,6 @@ Name of Group: JSEN<br /><br />
 
 Group Members: Sarah Zhang, Evan Xiang, Jingwen Zhang, Nancy Li<br /><br />
 
-WEEK 6-7:<br /><br />
-Sarah, Evan, and Jingwen work on their tasks and finish them<br /><br />
-WEEK 8:<br /><br />
-Nancy integrates their tasks with the website. After this, we will submit the project<br /><br />
-
-
 To run the program:<br /><br />
 1.) Enter the main directory called "CMSC-12200-Final-Project". To do this, run the follow command: "cd CMSC-12200-Final-Project".<br /><br />
 2.) Start the virtual environment by running the following command: "source bin/activate".<br /><br />
