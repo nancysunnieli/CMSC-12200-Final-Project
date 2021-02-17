@@ -9,16 +9,19 @@ Nancy integrates their tasks with the website. After this, we will submit the pr
 
 
 To run the program:<br /><br />
-1.) Enter the directory called "collegesubredditwebsite". To do this, run the following command in your terminal: "cd collegesubredditwebsite". <br /><br />
-2.) Enter the follwing command in the terminal: "python3 manage.py runserver".<br /><br />
-2.) This will output a link. Copy and paste the link in the desired internet browser.<br /><br />
-3.) Explore the pages on the website, which are as follows:<br />
+1.) Enter the main directory called "CMSC-12200-Final-Project". To do this, run the follow command: "cd CMSC-12200-Final-Project".<br /><br />
+2.) Start the virtual environment by running the following command: "source bin/activate".<br /><br />
+4.) Enter the directory called "collegesubredditwebsite". To do this, run the following command in your terminal: "cd collegesubredditwebsite". <br /><br />
+5.) Enter the follwing command in the terminal: "python3 manage.py runserver".<br /><br />
+6.) This will output a link. Copy and paste the link in the desired internet browser.<br /><br />
+7.) Explore the pages on the website, which are as follows:<br />
   - Home: This is a welcome message<br />
   - About: This gives an explanation of the project and the pages<br />
   - Top Keywords: This outputs the top keywords given parameters from the user<br />
   - Word Prevalence: This outputs a graph of the percentage usage of a given word over time given parameters from the user<br />
   - Similarity: The compares the similarity of two colleges given parameters from the user<br />
-  - Upvotes Analysis: This provides an analysis of the upvotes on the posts given parameters from the user<br />
+  - Upvotes Analysis: This provides an analysis of the upvotes on the posts given parameters from the user<br /><br />
+8.) Deactivate the virtual environment by running "deactivate"<br /><br />
   
  
 Description of files in this repository: <br />
