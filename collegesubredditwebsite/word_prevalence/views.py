@@ -41,7 +41,8 @@ class SearchForm(forms.Form):
               stanford: 08/24/20,
                uchicago: 07/30/20,
                 upenn: 10/05/20,
-                 yale: 06/28/18"""),
+                 yale: 06/28/18,
+                  columbia: 11/22/20"""),
         required=True)
     end_date = forms.CharField(
         label='End Date',
