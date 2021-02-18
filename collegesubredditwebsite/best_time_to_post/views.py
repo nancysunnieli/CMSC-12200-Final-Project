@@ -51,8 +51,7 @@ class SearchForm(forms.Form):
     college = forms.CharField(
         label='College',
         help_text=("""e.g. UChicago"""),
-        required=False)
-    )
+        required=True)
 
 def best_time_to_post_view(request):
     form = SearchForm()
@@ -66,7 +65,6 @@ def best_time_to_post_view(request):
             args = {}
             if form.cleaned_data['start_date'] and form.cleaned_data['end_date']:
                 args['time frame'] = (form.cleaned_data['start_date'], form.cleaned_data['end_date'])
-            data_points = form.cleaned_data['data_points']
             college = form.cleaned_data['college']
             if college:
                 args['college'] = college
