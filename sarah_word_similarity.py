@@ -58,6 +58,9 @@ def compute_percent_similar(school_1, school_2, start_date, end_date, k):
     for word in top_k_1:
         if word in top_k_2:
             overlap.append(word)
+    
+    if not overlap:
+        return 0
 
     start_epoch_date = nwp.convert_date_time_to_epoch_time(start_date)
     end_epoch_date = nwp.convert_date_time_to_epoch_time(end_date)
@@ -73,11 +76,9 @@ def compute_percent_similar(school_1, school_2, start_date, end_date, k):
     
     percent_overlap = 0
     for word, perc_1 in top_percentages_1.items():
-        if total_percentage_1 != 0 and total_percentage_2 != 0:
-            relative_perc_1 = perc_1 / total_percentage_1
-            relative_perc_2 = top_percentages_2[word] / total_percentage_2
-            percent_overlap += min(relative_perc_1, relative_perc_2)
-        else:
-            return "ERROR ONE OF THE PERCENTAGES IS 0. CANNOT BE COMPUTED."
+        relative_perc_1 = perc_1 / total_percentage_1
+        relative_perc_2 = top_percentages_2[word] / total_percentage_2
+        percent_overlap += min(relative_perc_1, relative_perc_2)
+            
     
     return percent_overlap * 100
