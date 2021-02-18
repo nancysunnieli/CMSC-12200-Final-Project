@@ -33,19 +33,20 @@ class SearchForm(forms.Form):
         label='Start Date',
         help_text=("""In the form: MM/DD/YY.
          Earliest date for each college is as follows:
-         Caltech: 04/14/11,
-          Harvard: 09/13/19,
-           JHU: 07/13/20,
-            MIT: 10/07/19,
-             Princeton: 04/01/15,
-              Stanford: 08/24/20,
-               UChicago: 07/30/20,
-                UPenn: 10/05/20,
-                 Yale: 06/28/18"""),
+         caltech: 04/14/11,
+          harvard: 09/13/19,
+           jhu: 07/13/20,
+            mit: 10/07/19,
+             princeton: 04/01/15,
+              stanford: 08/24/20,
+               uchicago: 07/30/20,
+                upenn: 10/05/20,
+                 yale: 06/28/18,
+                  columbia: 11/22/20"""),
         required=True)
     end_date = forms.CharField(
         label='End Date',
-        help_text=("In the form: MM/DD/YY"),
+        help_text=("In the form: MM/DD/YY. Latest date is 02/16/21."),
         required=True)
     data_points = forms.IntegerField(
         label='Data Points',
@@ -53,8 +54,10 @@ class SearchForm(forms.Form):
         required=True)
     college = forms.CharField(
         label='College',
-        help_text=("""e.g. UChicago; If you want to do multiple colleges, 
-        separate the name of the colleges by a space"""),
+        help_text=("""e.g. uchicago; If you want to do multiple colleges, 
+        separate the name of the colleges by a space. Choices are as follows:
+        uchicago, upenn, yale, caltech, mit, stanford, jhu,
+        princeton, harvard, columbia"""),
         required=False)
     word = forms.CharField(
         label = 'Word',

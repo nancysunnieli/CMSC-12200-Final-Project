@@ -5,9 +5,13 @@ Top Keywords<br><br>
 Use this form to find the top keywords for colleges and timeframes!<br><br>
 
 <form method = "GET">
-    <input type = "text" name = "Time Frame" placeholder = "Specified Time Frame"><br><br>
-    <input type = "text" name = "College" placeholder = "College (Optional)"><br><br>
+
+    {{ form.as_p }}
+
 <input type="submit" value="Submit">
 </form>
+
+{{ result }}
+<img src="{{ graphic }}">
 
 {% endblock %}

@@ -24,22 +24,27 @@ class SearchForm(forms.Form):
               Stanford: 08/24/20,
                UChicago: 07/30/20,
                 UPenn: 10/05/20,
-                 Yale: 06/28/18"""),
+                 Yale: 06/28/18,
+                  Columbia: 11/22/20"""),
         required=True)
     end_date = forms.CharField(
         label='End Date',
-        help_text=("In the form: MM/DD/YY"),
+        help_text=("In the form: MM/DD/YY. Latest date is 02/16/21."),
         required=True)
     college1 = forms.CharField(
         label='First College',
-        help_text=("""e.g. UChicago"""),
+        help_text=("""e.g. uchicago. Choices are as follows:
+        uchicago, upenn, yale, caltech, mit, stanford, jhu,
+        princeton, harvard, columbia"""),
         required=True)
     college2 = forms.CharField(
         label = 'Second College',
-        help_text = 'e.g. Caltech',
+        help_text = ("""e.g. uchicago. Choices are as follows:
+        uchicago, upenn, yale, caltech, mit, stanford, jhu,
+        princeton, harvard, columbia"""),
         required=True)
     ngram = forms.IntegerField(
-        label = 'Amount of words in n gram',
+        label = 'Amount of 1-grams to compare',
         help_text = 'e.g. 5',
         required=True
     )

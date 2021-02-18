@@ -3,30 +3,29 @@ References:
 https://www.youtube.com/watch?v=F5mRW0jo-U4
 https://stackoverflow.com/questions/61936775/how-to-pass-matplotlib-graph-in-django-template
 PA3 from CMSC 12200
+https://stackoverflow.com/questions/56714856/how-can-i-show-wordcloud-in-html
 """
 
 from django.shortcuts import render
 from django import forms
-from nancy_word_prevalence import create_graph
-
-# Create your views here.
+from evan_top_terms import find_top_k_ngrams, create_word_cloud
 
 from io import BytesIO
 import base64
 import matplotlib.pyplot as plt
-import numpy as np
+import urllib
 
 def graphic(res):
+    plt.imshow(res, interpolation = 'bilinear')
+    plt.axis("off")
+    image = BytesIO()
+    plt.savefig(image, format = 'png')
+    image.seek(0)
+    string = base64.b64encode(image.read())
+    image_64 = 'data:image/png;base64,' + urllib.parse.quote(string)
+    return image_64
 
-    buffer = BytesIO()
-    plt.savefig(buffer, format='png')
-    buffer.seek(0)
-    image_png = buffer.getvalue()
-    buffer.close()
-
-    graphic = base64.b64encode(image_png)
-    graphic = graphic.decode('utf-8')
-    return graphic
+# Create your views here.
 
 class SearchForm(forms.Form):
     start_date = forms.CharField(
@@ -41,25 +40,36 @@ class SearchForm(forms.Form):
               Stanford: 08/24/20,
                UChicago: 07/30/20,
                 UPenn: 10/05/20,
-                 Yale: 06/28/18"""),
-        required=True)
+                 Yale: 06/28/18,
+                  Columbia: 11/22/20"""),
+        required=False)
     end_date = forms.CharField(
         label='End Date',
-        help_text=("In the form: MM/DD/YY"),
-        required=True)
-    data_points = forms.IntegerField(
-        label='Data Points',
-        help_text='e.g. 5',
+        help_text=("In the form: MM/DD/YY. Latest date is 02/16/21."),
+        required=False)
+    number_of_words_n_gram = forms.IntegerField(
+        label='Number of Words in N-Gram',
+        help_text='e.g. 2',
         required=True)
     college = forms.CharField(
         label='College',
-        help_text=("""e.g. UChicago; If you want to do multiple colleges, 
-        separate the name of the colleges by a space"""),
-        required=False)
-    word = forms.CharField(
-        label = 'Word',
-        help_text = 'e.g. potato',
-        required=True
+        help_text=("""e.g. uchicago. Choices are as follows:
+        uchicago, upenn, yale, caltech, mit, stanford, jhu,
+        princeton, harvard, columbia"""),
+        required=True)
+    number_of_key_words = forms.IntegerField(
+        label = 'Number of Key Words',
+        help_text = 'e.g. 5',
+        required=True)
+    minimum_ratio = forms.IntegerField(
+        label = 'Minimum Ratio',
+        help_text = 'e.g. 0',
+        required=False
+    )
+    maximum_ratio = forms.IntegerField(
+        label = 'Maximum Ratio',
+        help_text = 'e.g. 10',
+        required=False
     )
 
 def top_keywords_view(request):
@@ -71,28 +81,33 @@ def top_keywords_view(request):
         form = SearchForm(request.GET)
         context["form"] = form
         if form.is_valid():
-            args = {}
-            if form.cleaned_data['start_date'] and form.cleaned_data['end_date']:
-                args['time frame'] = (form.cleaned_data['start_date'], form.cleaned_data['end_date'])
-            data_points = form.cleaned_data['data_points']
-            if data_points:
-                args['data points'] = data_points
-            college = form.cleaned_data['college']
-            if college:
-                args['college'] = []
-                college = college.split()
-                for college in college:
-                    args['college'].append(college)
-            word = form.cleaned_data['word']
-            if word:
-                args['word'] = word
-            res = create_graph(args)
+            if form.cleaned_data['start_date']:
+                start_time = form.cleaned_data['start_date']
+            else:
+                start_time = '01/01/00'
+            if form.cleaned_data['end_date']:
+                end_time = form.cleaned_data['end_date']
+            else:
+                end_time = '03/01/21'
+            n = form.cleaned_data['number_of_words_n_gram']
+            k = form.cleaned_data['number_of_key_words']
+            school = form.cleaned_data['college']
+            if form.cleaned_data['minimum_ratio']:
+                ratio_min = form.cleaned_data['minimum_ratio']
+            else:
+                ratio_min = 0
+            if form.cleaned_data['maximum_ratio']:
+                ratio_max = form.cleaned_data['maximum_ratio']
+            else:
+                ratio_max = 500
+
+            res = find_top_k_ngrams(school, n, k, start_time, end_time, ratio_min, ratio_max)
+            wordcloud = create_word_cloud(school, n, k, start_time, end_time, ratio_min, ratio_max)
     # Handle different responses of res
     if res is None:
         context['result'] = None
     else:
-        #context['result'] = res
-        graphic1 = graphic(res)
-        context["graphic"] = graphic1
+        context['result'] = res
+        context["graphic"] = graphic(wordcloud)
 
     return render(request, 'top_keywords.html', context)
