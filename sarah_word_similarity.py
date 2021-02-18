@@ -78,6 +78,6 @@ def compute_percent_similar(school_1, school_2, start_date, end_date, k):
             relative_perc_2 = top_percentages_2[word] / total_percentage_2
             percent_overlap += min(relative_perc_1, relative_perc_2)
         else:
-            return "ERROR ONE OF THE PERCENTAGES IS 0. CANNOT BE COMPUTED"
+            return "ERROR ONE OF THE PERCENTAGES IS 0. CANNOT BE COMPUTED."
     
     return percent_overlap * 100
