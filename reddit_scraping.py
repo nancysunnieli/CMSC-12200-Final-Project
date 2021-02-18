@@ -57,7 +57,8 @@ for school in list_of_schools:
                 "downs": post["data"]["downs"],
                 "score": post["data"]["score"],
                 "epoch_time": post["data"]["created_utc"],
-                "unique_post_id": post["data"]["name"]
+                "unique_post_id": post["data"]["name"],
+                "user_id": post["data"]["author"]
             }, ignore_index = True)
         last_post = post["data"]["name"]
     
