@@ -93,7 +93,7 @@ def day_to_time_to_scores(csv_name):
     '''
     rv = {}
 
-    with open(csv_name) as f:
+    with open(csv_name, encoding="utf8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             epoch_time = row['epoch_time']
@@ -103,7 +103,7 @@ def day_to_time_to_scores(csv_name):
             if hour not in rv[day]:
                 rv[day][hour] = {}
                 rv[day][hour]['scores'] = []
-            rv[day][hour]['scores'].append(row['score'])
+            rv[day][hour]['scores'].append(float(row['score']))
 
     return rv
 
@@ -116,7 +116,7 @@ def get_array(day_time_scores):
 
     Input:
       day_time_scores (dict): the dictionary that maps time to scores
-    
+
     Returns:
       a numpy array whose row numbers should be equal to the number
       of days, and column numbers should be equal to the number of hours
@@ -125,9 +125,12 @@ def get_array(day_time_scores):
 
     for day in day_time_scores:
         hour_averages = []
-        for hour in day_time_scores[day]:
-            scores = day_time_scores[day][hour][scores]
-            hour_average = sum(scores) / len(scores)
+        for hour in TIME_BLOCKS:
+            if hour in day_time_scores[day]:
+                s = day_time_scores[day][hour]["scores"]
+                hour_average = sum(s) / len(s)
+            else:
+                hour_average = 0.0
             hour_averages.append(hour_average)
         day_averages.append(hour_averages)
 
@@ -158,11 +161,12 @@ def graphing(averages):
     ax.set_xticklabels(TIME_BLOCKS)
     ax.set_yticklabels(DAY)
 
+    '''
     for i in range(len(DAY)):
         for j in range(len(TIME_BLOCKS)):
             text = ax.text(j, i, averages[i, j],
                            ha="center", va="center", color="w")
-
+    '''
     ax.set_title("When is the best time to post?")
     fig.tight_layout()
     plt.show()
@@ -185,6 +189,5 @@ def main(user_input):
     csv_name = get_csv(college_name)
     day_time_scores = day_to_time_to_scores(csv_name)
     averages = get_array(day_time_scores)
-    return averages
+
     graphing(averages)
-    # do I need to return anything here?
