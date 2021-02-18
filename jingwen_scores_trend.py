@@ -169,7 +169,9 @@ def graphing(averages):
     '''
     ax.set_title("When is the best time to post?")
     fig.tight_layout()
-    plt.show()
+    # comment this in if you want to run the program without the website
+    # plot(show)
+    return fig
 
 
 def main(user_input):
@@ -190,4 +192,4 @@ def main(user_input):
     day_time_scores = day_to_time_to_scores(csv_name)
     averages = get_array(day_time_scores)
 
-    graphing(averages)
+    return graphing(averages)
