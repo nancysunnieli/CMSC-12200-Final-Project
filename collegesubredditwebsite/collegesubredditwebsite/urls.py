@@ -21,7 +21,7 @@ from pages.views import (home_view, about_view)
 from word_prevalence.views import word_prevalence_view
 from similarity.views import similarity_view
 from top_keywords.views import top_keywords_view
-from up_votes.views import up_votes_view
+from best_time_to_post.views import best_time_to_post_view
 
 urlpatterns = [
     path('', home_view, name = 'home1'),
@@ -31,5 +31,5 @@ urlpatterns = [
     path('word_prevalence/', word_prevalence_view, name='word_prevalence'),
     path('similarity/', similarity_view, name='similarity'),
     path('top_keywords/', top_keywords_view, name='top_keywords'),
-    path('up_votes/', up_votes_view, name='up_votes'),
+    path('best_time_to_post/', best_time_to_post_view, name='best_time_to_post'),
 ]

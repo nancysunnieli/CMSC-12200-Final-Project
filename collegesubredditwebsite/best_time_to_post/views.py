@@ -7,7 +7,7 @@ PA3 from CMSC 12200
 
 from django.shortcuts import render
 from django import forms
-from nancy_word_prevalence import create_graph
+from jingwen_scores_trend import main
 
 # Create your views here.
 
@@ -54,8 +54,7 @@ class SearchForm(forms.Form):
         required=True)
     college = forms.CharField(
         label='College',
-        help_text=("""e.g. UChicago; If you want to do multiple colleges, 
-        separate the name of the colleges by a space"""),
+        help_text=("""e.g. UChicago"""),
         required=False)
     word = forms.CharField(
         label = 'Word',
@@ -63,7 +62,7 @@ class SearchForm(forms.Form):
         required=True
     )
 
-def up_votes_view(request):
+def best_time_to_post_view(request):
     form = SearchForm()
     context = {}
     res = None
@@ -80,20 +79,16 @@ def up_votes_view(request):
                 args['data points'] = data_points
             college = form.cleaned_data['college']
             if college:
-                args['college'] = []
-                college = college.split()
-                for college in college:
-                    args['college'].append(college)
+                args['college'] = college
             word = form.cleaned_data['word']
             if word:
                 args['word'] = word
-            res = create_graph(args)
+            res = main(args)
     # Handle different responses of res
     if res is None:
         context['result'] = None
     else:
-        #context['result'] = res
         graphic1 = graphic(res)
         context["graphic"] = graphic1
 
-    return render(request, 'up_votes.html', context)
+    return render(request, 'best_time_to_post.html', context)

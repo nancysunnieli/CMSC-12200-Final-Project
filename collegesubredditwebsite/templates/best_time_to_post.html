@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+Best Time To Post Analysis<br><br>
+
+Use this form to generate a heatmap of the best times to post in subreddits!<br><br>
+
+<form method = "GET">
+
+    {{ form.as_p }}
+
+<input type="submit" value="Submit">
+</form>
+<img src="data:image/png;base64,{{ graphic|safe }}">
+{% endblock %}
