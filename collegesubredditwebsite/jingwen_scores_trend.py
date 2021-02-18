@@ -14,15 +14,10 @@ import matplotlib.pyplot as plt
 # best time to post in a given subreddit group to get
 # more traffic.
 
-# !!question: is epoch time a float, integer, or string?
-# !!question: why is college in user_input a list of string?
-
 # reminder of what the user_input dict looks like
 '''
 user_input (dictionary): The user input is a dictionary
-        of the following form {"time frame": (start_date, end_date),
-        "data points": integer, "college" : [list of strings],
-        "word" : string}
+        of the following form {"time frame": (start_date, end_date), "college" : string}
 '''
 
 # 1. create time blocks and days - global variables
@@ -180,9 +175,7 @@ def main(user_input):
 
     Input: 
       user_input (dictionary): The user input is a dictionary
-      of the following form {"time frame": (start_date, end_date),
-      "data points": integer, "college" : [list of strings],
-      "word" : string}
+      of the following form {"time frame": (start_date, end_date), "college" : string}
     
     Returns:
       a heatmap that shows which time period gains the most traffic

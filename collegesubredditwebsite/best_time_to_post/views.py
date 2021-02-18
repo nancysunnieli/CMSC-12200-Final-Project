@@ -48,18 +48,10 @@ class SearchForm(forms.Form):
         label='End Date',
         help_text=("In the form: MM/DD/YY"),
         required=True)
-    data_points = forms.IntegerField(
-        label='Data Points',
-        help_text='e.g. 5',
-        required=True)
     college = forms.CharField(
         label='College',
         help_text=("""e.g. UChicago"""),
         required=False)
-    word = forms.CharField(
-        label = 'Word',
-        help_text = 'e.g. potato',
-        required=True
     )
 
 def best_time_to_post_view(request):
@@ -75,14 +67,9 @@ def best_time_to_post_view(request):
             if form.cleaned_data['start_date'] and form.cleaned_data['end_date']:
                 args['time frame'] = (form.cleaned_data['start_date'], form.cleaned_data['end_date'])
             data_points = form.cleaned_data['data_points']
-            if data_points:
-                args['data points'] = data_points
             college = form.cleaned_data['college']
             if college:
                 args['college'] = college
-            word = form.cleaned_data['word']
-            if word:
-                args['word'] = word
             res = main(args)
     # Handle different responses of res
     if res is None:
