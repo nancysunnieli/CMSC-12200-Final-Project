@@ -7,7 +7,8 @@ CREATE TABLE post_info
     title varchar(100),
     unique_post_id varchar(20),
     ups integer,
-    upvote_ratio float(5, 3));
+    upvote_ratio float(5, 3),
+    user_id varchar(100));
 
 .separator ","
 
