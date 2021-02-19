@@ -39,3 +39,21 @@
 
 10.) Project_Proposal.pdf and edited_plan.pdf contain the overview and schedule of the project.  <br /><br />
 11.) db.sqlite3 is the database that contains two tables, which are called post_words and post_info. The table post_info contains all the information of the posts. It has the same information as all_raw_data.csv. The table post_words maps words to the unique_post_id that they are from. It has the same information as word_raw_data.csv.  <br /><br />
+
+
+ 
+"""*****Distribution of Work:*****""" <br />
+Nancy Li: <br />
+- Wrote reddit_scraping.py, Set_Up_Database.py, and create_tables_in_database. This code scraped the relevant subreddits, created the csv files of data, and set up the db.sqlite3 database.<br />
+- Wrote nancy_word_prevalence.py function <br />
+- added wordcloud function to evan_top_keywords <br />
+- Designed, created, and wrote code for entire website to integrate functions.<br /><br />
+
+Jingwen Zhang:<br />
+- Wrote Jingwen_scores_trend.py, which is the function that creates a heat map of popular posting times for a given college.<br /><br />
+
+Evan Xiang:<br />
+- Wrote Evan_top_keywords.py, which is the function that returns back a list of top n-grams given user inputs.<br /><br />
+
+Sarah Zhang:<br />
+- Wrote Sarah_word_similarity.py, which is the function that returns back percentage similarity between two colleges given time frame.<br /><br />
