@@ -16,6 +16,7 @@ CREATE TABLE post_info
 
 CREATE TABLE post_words
     (unique_post_id varchar(20),
+    user_id varchar(100),
     word varchar(200));
 
 .separator ","
