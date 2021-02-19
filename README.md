@@ -49,7 +49,7 @@ Nancy Li: <br />
 - Wrote nancy_word_prevalence.py function. <br />
 - Wrote nancy_find_friends.py function. <br />
 - added wordcloud function to evan_top_terms.py. <br />
-- Designed, created, and wrote code for entire website to integrate functions using Django, HTML, and python. (All files in collegesubredditwebsite directory) <br /><br />
+- Designed, created, and wrote code for website to integrate functions using Django, HTML, and python. (collegesubredditwebsite directory) <br /><br />
 
 Jingwen Zhang:<br />
 - Wrote Jingwen_scores_trend.py, which is the function that creates a heat map of popular posting times for a given college.<br /><br />
