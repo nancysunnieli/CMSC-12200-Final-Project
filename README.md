@@ -30,10 +30,11 @@
 
 
 4.) nancy_word_prevalence.py: This was the program used to create the word prevalence graphs.  <br /><br />
-5.) evan_top_terms.py: This was the program used to create top keywords/ngrams, as well as the wordclouds. <br /><br />
-6.) evan_word_saliency.py: This was evan's code from one of the PA's from CMSC 12100. She modified it and added some other helpful helper functions within the document. It is essentially a util file for evan_top_terms.py. <br /><br />
-7.) jingwen_scores_trend.py: This was the code created to generate a heatmap of popular posting times. <br /><br />
-8.) sarah_word_similarity.py: This was the code created to compute similarity across schools.
+5.) nancy_find_friends.py: This was the program used to create lists of potential friends. <br /><br />
+6.) evan_top_terms.py: This was the program used to create top keywords/ngrams, as well as the wordclouds. <br /><br />
+7.) evan_word_saliency.py: This was evan's code from one of the PA's from CMSC 12100. She modified it and added some other helpful helper functions within the document. It is essentially a util file for evan_top_terms.py. <br /><br />
+8.) jingwen_scores_trend.py: This was the code created to generate a heatmap of popular posting times. <br /><br />
+9.) sarah_word_similarity.py: This was the code created to compute similarity across schools.
 
 9.) collegesubredditwebsite directory: This contains all the necessary files for the website.  <br /><br />
 
