@@ -47,7 +47,7 @@ Nancy Li: <br />
 - Wrote reddit_scraping.py, Set_Up_Database.py, and create_tables_in_database.sql. This code scraped the relevant subreddits, created the csv files of data, and set up the db.sqlite3 database.<br />
 - Wrote nancy_word_prevalence.py function. <br />
 - added wordcloud function to evan_top_keywords.py. <br />
-- Designed, created, and wrote code for entire website to integrate functions using Django, HTML, and python.<br /><br />
+- Designed, created, and wrote code for entire website to integrate functions using Django, HTML, and python. (All files in collegesubredditwebsite) <br /><br />
 
 Jingwen Zhang:<br />
 - Wrote Jingwen_scores_trend.py, which is the function that creates a heat map of popular posting times for a given college.<br /><br />
