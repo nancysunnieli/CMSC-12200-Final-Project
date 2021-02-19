@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+Find Friends! <br><br>
+Use this form to find other reddit users who are similar to you!<br><br>
+
+<form method = "GET">
+
+    {{ form.as_p }}
+
+<input type="submit" value="Submit">
+</form>
+
+{{ result }}
+
+{% endblock %}
