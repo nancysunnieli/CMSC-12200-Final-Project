@@ -47,19 +47,18 @@ def create_list_of_words(user_id):
     """
     db = sqlite3.connect("db.sqlite3")
     c = db.cursor()
-    query = ("SELECT word FROM post_words WHERE user_id = ?")
+    query = ("SELECT text FROM post_info WHERE user_id = ?")
     params = [user_id]
     r = c.execute(query, params)
-    all_words = r.fetchall()
-    all_words_edited = []
-    for word in all_words:
-        word = str(word).strip("(),'")
-        all_words_edited.append(word)
-    StopWords = set(stopwords.words('english'))
-    for word in all_words_edited:
-        if word in StopWords:
-            all_words_edited.remove(word)
-    return all_words_edited
+    all_posts = r.fetchall()
+    all_posts_edited = []
+
+    letters = set('abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    for post in all_posts:
+        new_post = str(post).strip("(,)")
+        new_post = "".join(filter(letters.__contains__, new_post))
+        all_posts_edited.append(new_post)
+    return all_posts_edited
 
 def compute_cosine_similarity(first_user_list, second_user_list):
     """
@@ -73,9 +72,19 @@ def compute_cosine_similarity(first_user_list, second_user_list):
     cosine_similarity (float): The cosine similarity between the two lists
     """
 
-    all_words = set(first_user_list + second_user_list)
-    counted_first_user = Counter(first_user_list)
-    counted_second_user = Counter(second_user_list)
+    all_words_first_list = []
+    for post in first_user_list:
+        new_post = post.split()
+        all_words_first_list += new_post
+    
+    all_words_second_list = []
+    for post in second_user_list:
+        new_post = post.split()
+        all_words_second_list += new_post
+
+    all_words = set(all_words_first_list + all_words_second_list)
+    counted_first_user = Counter(all_words_first_list)
+    counted_second_user = Counter(all_words_second_list)
 
     first_vector = [counted_first_user.get(word, 0) for word in all_words]
     second_vector = [counted_second_user.get(word, 0) for word in all_words]
@@ -101,7 +110,7 @@ def find_friends(user_id):
     user_id (string): name of the user
 
     Outputs:
-    top_hundred (list): 100 most similar users
+    top_hundred (list of tuples): 100 most similar users with a sample post
     """
     original_user_words = create_list_of_words(user_id)
     all_other_users = create_list_of_other_users(user_id)
@@ -110,12 +119,13 @@ def find_friends(user_id):
 
     for other_user in all_other_users:
         other_user_words = create_list_of_words(other_user)
-        all_other_users_words[other_user] = other_user_words
+        if other_user_words != [""]:
+            all_other_users_words[other_user] = other_user_words
     
     cosine_similarity = {}
     for other_user, other_user_words in all_other_users_words.items():
         similarity_measure = compute_cosine_similarity(original_user_words, other_user_words)
-        cosine_similarity[other_user] = similarity_measure
+        cosine_similarity[tuple((other_user, other_user_words[0][0:100]))] = similarity_measure
     
     sorted_cosine_similarity = sorted(cosine_similarity, key = cosine_similarity.get, reverse = True)
     top_hundred = sorted_cosine_similarity[:100]

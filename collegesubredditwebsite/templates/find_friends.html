@@ -3,7 +3,8 @@
 {% block content %}
 
 Find Friends! <br><br>
-Use this form to find other reddit users who are similar to you!<br><br>
+Use this form to find other reddit users who are similar to you! The first item
+in the tuple is the username. The second item is a excerpt from a sample post. <br><br>
 
 <form method = "GET">
 
@@ -12,6 +13,6 @@ Use this form to find other reddit users who are similar to you!<br><br>
 <input type="submit" value="Submit">
 </form>
 
-{{ result }}
+<textarea>{{result| join:"&#10;"}}</textarea>
 
 {% endblock %}
