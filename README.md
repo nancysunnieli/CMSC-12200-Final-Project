@@ -31,10 +31,11 @@
 
 4.) nancy_word_prevalence.py: This was the program used to create the word prevalence graphs.  <br /><br />
 5.) nancy_find_friends.py: This was the program used to create lists of potential friends. <br /><br />
-6.) evan_top_terms.py: This was the program used to create top keywords/ngrams, as well as the wordclouds. <br /><br />
-7.) evan_word_saliency.py: This was evan's code from one of the PA's from CMSC 12100. She modified it and added some other helpful helper functions within the document. It is essentially a util file for evan_top_terms.py. <br /><br />
-8.) jingwen_scores_trend.py: This was the code created to generate a heatmap of popular posting times. <br /><br />
-9.) sarah_word_similarity.py: This was the code created to compute similarity across schools.
+6.) nancy_find_suggested_posts.py: This was the program used to create lists of suggested posts.  <br /><br />
+7.) evan_top_terms.py: This was the program used to create top keywords/ngrams, as well as the wordclouds. <br /><br />
+8.) evan_word_saliency.py: This was evan's code from one of the PA's from CMSC 12100. She modified it and added some other helpful helper functions within the document. It is essentially a util file for evan_top_terms.py. <br /><br />
+9.) jingwen_scores_trend.py: This was the code created to generate a heatmap of popular posting times. <br /><br />
+10.) sarah_word_similarity.py: This was the code created to compute similarity across schools.
 
 9.) collegesubredditwebsite directory: This contains all the necessary files for the website.  <br /><br />
 
@@ -48,6 +49,7 @@ Nancy Li: <br />
 - Wrote reddit_scraping.py, Set_Up_Database.py, and create_tables_in_database.sql. This code scraped the relevant subreddits, created the csv files of data, and set up the db.sqlite3 database.<br />
 - Wrote nancy_word_prevalence.py function. <br />
 - Wrote nancy_find_friends.py function. <br />
+- Wrote nancy_find_suggested_posts.py function  <br />
 - added wordcloud function to evan_top_terms.py. <br />
 - Designed, created, and wrote code for website to integrate functions using Django, HTML, and python. (collegesubredditwebsite directory) <br /><br />
 
