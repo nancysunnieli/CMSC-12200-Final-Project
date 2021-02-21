@@ -50,7 +50,9 @@ def find_suggested_posts(string_of_words, college = ""):
 
     cosine_similarity = {}
     for unique_post_id, text, title in cleaned_relevant_posts:
-        similarity_measure = compute_cosine_similarity(string_of_words.lower(), (title + text).lower())
+        letters = set('abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+        new_title = "".join(filter(letters.__contains__, title))
+        similarity_measure = compute_cosine_similarity(string_of_words.lower(), (new_title + " " + text).lower())
         cosine_similarity[(unique_post_id, title)] = similarity_measure
     
     sorted_cosine_similarity = sorted(cosine_similarity, key = cosine_similarity.get, reverse = True)
