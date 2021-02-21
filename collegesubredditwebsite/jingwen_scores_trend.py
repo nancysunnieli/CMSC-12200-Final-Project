@@ -175,7 +175,7 @@ def main(user_input):
 
     Input: 
       user_input (dictionary): The user input is a dictionary
-      of the following form {"time frame": (start_date, end_date), "college" : string}
+      of the following form {"college" : string}
     
     Returns:
       a heatmap that shows which time period gains the most traffic

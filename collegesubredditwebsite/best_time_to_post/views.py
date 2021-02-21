@@ -29,25 +29,6 @@ def graphic(res):
     return graphic
 
 class SearchForm(forms.Form):
-    start_date = forms.CharField(
-        label='Start Date',
-        help_text=("""In the form: MM/DD/YY.
-         Earliest date for each college is as follows:
-         Caltech: 04/14/11,
-          Harvard: 09/13/19,
-           JHU: 07/13/20,
-            MIT: 10/07/19,
-             Princeton: 04/01/15,
-              Stanford: 08/24/20,
-               UChicago: 07/30/20,
-                UPenn: 10/05/20,
-                 Yale: 06/28/18,
-                  Columbia: 11/22/20"""),
-        required=True)
-    end_date = forms.CharField(
-        label='End Date',
-        help_text=("In the form: MM/DD/YY"),
-        required=True)
     college = forms.CharField(
         label='College',
         help_text=("""e.g. UChicago"""),
@@ -62,13 +43,8 @@ def best_time_to_post_view(request):
         form = SearchForm(request.GET)
         context["form"] = form
         if form.is_valid():
-            args = {}
-            if form.cleaned_data['start_date'] and form.cleaned_data['end_date']:
-                args['time frame'] = (form.cleaned_data['start_date'], form.cleaned_data['end_date'])
             college = form.cleaned_data['college']
-            if college:
-                args['college'] = college
-            res = main(args)
+            res = main({"college": college})
     # Handle different responses of res
     if res is None:
         context['result'] = None
