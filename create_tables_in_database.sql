@@ -22,3 +22,11 @@ CREATE TABLE post_words
 .separator ","
 
 .import word_raw_data.csv post_words
+
+CREATE TABLE filtered_text
+    (text varchar(8000),
+    unique_post_id varchar(20));
+
+.separator ","
+
+.import filtered_text_data.csv filtered_text

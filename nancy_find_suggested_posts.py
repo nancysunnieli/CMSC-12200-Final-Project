@@ -8,26 +8,29 @@ from nancy_find_friends import compute_cosine_similarity
 def create_list_of_posts(college=""):
     """
     Goes through the database to create a list of relevant posts.
+
+    Inputs: 
+    college (string): name of college
+
+    Outputs:
+    cleaned_relevant_posts (list of tuples): list of tuples containing
+    information of title, text, and unique_post_id
     """
-    letters = set('abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ')
     db = sqlite3.connect("db.sqlite3")
     c = db.cursor()
-    query = "SELECT unique_post_id, title, text FROM post_info"
+    query = ("""SELECT filtered_text.unique_post_id, filtered_text.text,  
+                post_info.title FROM filtered_text JOIN post_info 
+                ON filtered_text.unique_post_id = post_info.unique_post_id""")
     
     if college != "":
-        query += " WHERE subreddit = ?"
+        query += " WHERE post_info.subreddit = ?"
         params = [college]
         r = c.execute(query, params)
     else:
         r = c.execute(query)
     all_relevant_posts = r.fetchall()
-
-    cleaned_relevant_posts = []
-    for unique_post_id, title, text in all_relevant_posts:
-        new_text = "".join(filter(letters.__contains__, text))
-        cleaned_relevant_posts.append((unique_post_id, title, new_text))
     
-    return cleaned_relevant_posts
+    return all_relevant_posts
 
 
 def find_suggested_posts(string_of_words, college = ""):
@@ -46,7 +49,7 @@ def find_suggested_posts(string_of_words, college = ""):
     cleaned_relevant_posts = create_list_of_posts(college)
 
     cosine_similarity = {}
-    for unique_post_id, title, text in cleaned_relevant_posts:
+    for unique_post_id, text, title in cleaned_relevant_posts:
         similarity_measure = compute_cosine_similarity(string_of_words.lower(), (title + text).lower())
         cosine_similarity[(unique_post_id, title)] = similarity_measure
     
