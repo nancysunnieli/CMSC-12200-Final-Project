@@ -23,6 +23,7 @@ from similarity.views import similarity_view
 from top_keywords.views import top_keywords_view
 from best_time_to_post.views import best_time_to_post_view
 from find_friends.views import find_friends_view
+from find_suggested_posts.views import find_suggested_posts_view
 
 urlpatterns = [
     path('', home_view, name = 'home1'),
@@ -34,4 +35,5 @@ urlpatterns = [
     path('top_keywords/', top_keywords_view, name='top_keywords'),
     path('best_time_to_post/', best_time_to_post_view, name='best_time_to_post'),
     path('find_friends/', find_friends_view, name='find_friends'),
+    path('find_suggested_posts/', find_suggested_posts_view, name='find_suggested_posts'),
 ]
