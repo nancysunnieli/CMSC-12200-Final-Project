@@ -92,7 +92,7 @@ def compare_all(target_school, start_date, end_date, k):
     Generate a bar graph of percentage similarities between the target school
     and all other schools for a given time period and number of words.
     
-    Referenced https://www.tutorialspoint.com/matplotlib/matplotlib_bar_plot.htm
+    Referenced https://benalexkeen.com/bar-charts-in-matplotlib/
     
     Inputs: college name (string),
             two strings of form "MM/DD/YY",
@@ -107,10 +107,12 @@ def compare_all(target_school, start_date, end_date, k):
             x.append(school)
             y.append(compute_percent_similar(target_school, school, start_date,
                                              end_date, k))
-        
+    
+    x_pos = [i for i, _ in enumerate(x)]
+
     fig = plt.figure()
-    ax = fig.add_axes([0,0,1,1])
-    ax.bar(x, y)
+    plt.bar(x_pos, y)
+    plt.xticks(x_pos, x)
     plt.title("Top " + str(k) + " word(s) usage similarities vs " + target_school)
     plt.xlabel("school")
     plt.ylabel("percent similar")
