@@ -117,6 +117,7 @@ def compare_all(target_school, start_date, end_date, k):
     plt.xlabel("school")
     plt.ylabel("percent similar")
     
+    
     # Comment this in if you want to run this program from
     # ipython3 instead of the website
     # plt.show()
