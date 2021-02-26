@@ -47,7 +47,7 @@ class SearchForm(forms.Form):
         help_text=("In the form: MM/DD/YY. Latest date is 02/16/21."),
         required=True)
     college1 = forms.CharField(
-        label='First College',
+        label='Target College',
         help_text=("""e.g. uchicago. Choices are as follows:
         uchicago, upenn, yale, caltech, mit, stanford, jhu,
         princeton, harvard, columbia"""),
