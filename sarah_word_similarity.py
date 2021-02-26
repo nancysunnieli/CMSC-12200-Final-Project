@@ -112,7 +112,7 @@ def compare_all(target_school, start_date, end_date, k):
 
     fig = plt.figure()
     plt.bar(x_pos, y)
-    plt.xticks(x_pos, x)
+    plt.xticks(x_pos, x, rotation='vertical')
     plt.title("Top " + str(k) + " word(s) usage similarities vs " + target_school)
     plt.xlabel("school")
     plt.ylabel("percent similar")
