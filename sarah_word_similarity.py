@@ -4,6 +4,10 @@
 
 import nancy_word_prevalence as nwp
 import evan_top_terms as ett
+import matplotlib.pyplot as plt
+
+SCHOOLS = [caltech, harvard, jhu, mit, princeton, stanford, uchicago,
+           upenn, yale, columbia]
 
 
 def compute_percentages(words, school, start, end):
@@ -81,3 +85,38 @@ def compute_percent_similar(school_1, school_2, start_date, end_date, k):
         percent_overlap += min(relative_perc_1, relative_perc_2)
     
     return percent_overlap * 100
+
+
+def compare_all(target_school, start_date, end_date, k):
+    '''
+    Generate a bar graph of percentage similarities between the target school
+    and all other schools for a given time period and number of words.
+    
+    Referenced https://www.tutorialspoint.com/matplotlib/matplotlib_bar_plot.htm
+    
+    Inputs: college name (string),
+            two strings of form "MM/DD/YY",
+            k (integer)
+    
+    Returns: figure
+    '''
+    x = []
+    y = []
+    for school in SCHOOLS:
+        if school != target_school:
+            x.append(school)
+            y.append(compute_percent_similar(target_school, school, start_date,
+                                             end_date, k))
+        
+    fig = plt.figure()
+    ax = fig.add_axes([0,0,1,1])
+    ax.bar(x, y)
+    plt.title("Top " + k + " word(s) usage similarities vs " + target_school)
+    plt.xlabel("school")
+    plt.ylabel("percent similar")
+    
+    # Comment this in if you want to run this program from
+    # ipython3 instead of the website
+    # plt.show()
+    
+    return fig
