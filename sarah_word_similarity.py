@@ -6,8 +6,8 @@ import nancy_word_prevalence as nwp
 import evan_top_terms as ett
 import matplotlib.pyplot as plt
 
-SCHOOLS = [caltech, harvard, jhu, mit, princeton, stanford, uchicago,
-           upenn, yale, columbia]
+SCHOOLS = ["caltech", "harvard", "jhu", "mit", "princeton", "stanford", "uchicago",
+           "upenn", "yale", "columbia"]
 
 
 def compute_percentages(words, school, start, end):
@@ -111,7 +111,7 @@ def compare_all(target_school, start_date, end_date, k):
     fig = plt.figure()
     ax = fig.add_axes([0,0,1,1])
     ax.bar(x, y)
-    plt.title("Top " + k + " word(s) usage similarities vs " + target_school)
+    plt.title("Top " + str(k) + " word(s) usage similarities vs " + target_school)
     plt.xlabel("school")
     plt.ylabel("percent similar")
     

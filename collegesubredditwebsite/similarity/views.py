@@ -7,9 +7,24 @@ PA3 from CMSC 12200
 
 from django.shortcuts import render
 from django import forms
-from sarah_word_similarity import compute_percent_similar
+from sarah_word_similarity import compare_all
 
-# Create your views here.
+from io import BytesIO
+import base64
+import matplotlib.pyplot as plt
+import numpy as np
+
+def graphic(res):
+
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    buffer.close()
+
+    graphic = base64.b64encode(image_png)
+    graphic = graphic.decode('utf-8')
+    return graphic
 
 class SearchForm(forms.Form):
     start_date = forms.CharField(
@@ -37,12 +52,6 @@ class SearchForm(forms.Form):
         uchicago, upenn, yale, caltech, mit, stanford, jhu,
         princeton, harvard, columbia"""),
         required=True)
-    college2 = forms.CharField(
-        label = 'Second College',
-        help_text = ("""e.g. uchicago. Choices are as follows:
-        uchicago, upenn, yale, caltech, mit, stanford, jhu,
-        princeton, harvard, columbia"""),
-        required=True)
     ngram = forms.IntegerField(
         label = 'Amount of 1-grams to compare',
         help_text = 'e.g. 5',
@@ -64,17 +73,15 @@ def similarity_view(request):
                  end_date = form.cleaned_data['end_date']
             if form.cleaned_data['college1']:
                 college1 = form.cleaned_data['college1']
-            if form.cleaned_data['college2']:
-                college2 = form.cleaned_data['college2']
             if form.cleaned_data['ngram']:
                 n = form.cleaned_data['ngram']
-            res = compute_percent_similar(college1, college2,
-                                          start_date, end_date, n)
+            res = compare_all(college1, start_date, end_date, n)
     # Handle different responses of res
     if res is None:
         context['result'] = None
     else:
         context['result'] = res
+        context['graphic'] = graphic(res)
 
     return render(request, 'similarity.html', context)
 
