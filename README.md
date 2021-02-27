@@ -61,4 +61,4 @@ Evan Xiang:<br />
 - Wrote Evan_word_saliency.py, which is a helper doc for Evan_top_terms.py.
 
 Sarah Zhang:<br />
-- Wrote Sarah_word_similarity.py, which is the function that returns back percentage similarity between two colleges given time frame.<br /><br />
+- Wrote Sarah_word_similarity.py, which is the function that returns back a graph of percentage similarity between a college and the rest of the colleges given time frame.<br /><br />
