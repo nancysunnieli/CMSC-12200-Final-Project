@@ -116,7 +116,7 @@ def compare_all(target_school, start_date, end_date, k):
     plt.title("Top " + str(k) + " word(s) usage similarities vs " + target_school)
     plt.xlabel("school")
     plt.ylabel("percent similar")
-    
+    plt.tight_layout()
     
     # Comment this in if you want to run this program from
     # ipython3 instead of the website
