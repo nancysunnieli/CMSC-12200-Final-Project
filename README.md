@@ -13,8 +13,10 @@
   - About: This gives an explanation of the project and the pages<br />
   - Top Keywords: This outputs the top keywords given parameters from the user<br />
   - Word Prevalence: This outputs a graph of the percentage usage of a given word over time given parameters from the user<br />
-  - Similarity: The compares the similarity of two colleges given parameters from the user<br />
-  - Upvotes Analysis: This provides an analysis of the upvotes on the posts given parameters from the user<br /><br />
+  - Similarity: The compares the similarity of a given college with other colleges given parameters from the user<br />
+  - Upvotes Analysis: This provides an analysis of the upvotes on the posts given parameters from the user<br />
+  - Find Friends: This creates a list of users that ask similar questions/have similar posts as a given user<br />
+  - Find Suggested Posts: This creates a list of suggested posts given an input<br /><br />
 
 8.) Deactivate the virtual environment by running "deactivate"<br /><br /><br /><br />
   
