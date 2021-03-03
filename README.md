@@ -1,8 +1,10 @@
-# Name of Group: JSEN<br /><br />
+# Name of Group:<br />
+JSEN<br /><br />
 
-# Group Members: Nancy Li, Evan Xiang, Jingwen Zhang, Sarah Zhang<br /><br /><br /><br />
+# Group Members:<br />
+Nancy Li, Evan Xiang, Jingwen Zhang, Sarah Zhang<br /><br /><br /><br />
 
-# To run the program:
+# To run the program:<br />
 1.) Enter the main directory called "CMSC-12200-Final-Project". To do this, run the follow command: "cd CMSC-12200-Final-Project".<br /><br />
 2.) Start the virtual environment by running the following command: "source bin/activate".<br /><br />
 4.) Enter the directory called "collegesubredditwebsite". To do this, run the following command in your terminal: "cd collegesubredditwebsite". <br /><br />
