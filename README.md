@@ -1,8 +1,8 @@
-"""*****Name of Group:*****""" JSEN<br /><br />
+#Name of Group: JSEN<br /><br />
 
-"""*****Group Members:*****""" Nancy Li, Evan Xiang, Jingwen Zhang, Sarah Zhang<br /><br /><br /><br />
+#Group Members: Nancy Li, Evan Xiang, Jingwen Zhang, Sarah Zhang<br /><br /><br /><br />
 
-"""*****To run the program:*****"""<br /><br />
+#To run the program:
 1.) Enter the main directory called "CMSC-12200-Final-Project". To do this, run the follow command: "cd CMSC-12200-Final-Project".<br /><br />
 2.) Start the virtual environment by running the following command: "source bin/activate".<br /><br />
 4.) Enter the directory called "collegesubredditwebsite". To do this, run the following command in your terminal: "cd collegesubredditwebsite". <br /><br />
@@ -21,7 +21,7 @@
 8.) Deactivate the virtual environment by running "deactivate"<br /><br /><br /><br />
   
  
-"""*****Description of files in this repository:*****""" <br />
+#Description of files in this repository: <br />
 1.) csv files:  <br />
   a.) word_raw_data.csv maps words to the post they are from. <br />
   b.) all_raw_data.csv contains all the raw data that was scraped from reddit APIs. It has the following columns: downs (number of down votes), epoch_time (time of post in epoch time), score (computed by reddit), subreddit (name of college the post is from), text (the raw text of the post), title (the title of the post), unique_post_id (unique post id), ups (amount of up votes), upvote_ratio (ratio between up and down votes). <br />
@@ -46,7 +46,7 @@
 
 
  
-"""*****Distribution of Work:*****""" <br />
+#Distribution of Work: <br />
 Nancy Li: <br />
 - Wrote reddit_scraping.py, Set_Up_Database.py, and create_tables_in_database.sql. This code scraped the relevant subreddits, created the csv files of data, and set up the db.sqlite3 database.<br />
 - Wrote nancy_word_prevalence.py function. <br />
