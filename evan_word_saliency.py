@@ -67,6 +67,7 @@ def sort_count_pairs(l):
     '''
     return list(sorted(l, key=cmp_to_key(cmp_count_tuples)))
 
+
 def cmp_to_key(mycmp):
     '''
     Convert a cmp= function into a key= function
@@ -92,6 +93,7 @@ def cmp_to_key(mycmp):
         def __ne__(self, other):
             return mycmp(self.obj, other.obj) != 0
     return CmpFn
+
 
 def cmp_count_tuples(t0, t1):
     '''
