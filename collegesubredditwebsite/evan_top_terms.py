@@ -4,7 +4,6 @@ This task is to return the top k n-grams w/ the given parameters by the user bei
     1) the school name,
     2) the number of words you want to receive back (n-grams),
     3) the number of n-grams you want to see (k number of n-grams),
-
     4) the start and end time range you want to comb thru,
             (optional, assume all time otherwise)
     5) and the upote/downvote score (optional)
@@ -14,7 +13,7 @@ import csv
 import sys
 import datetime
 import unicodedata
-from evan_word_saliency import find_top_k, find_salient
+from evan_word_saliency import find_top_k
 from nancy_word_prevalence import convert_date_time_to_epoch_time
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
@@ -29,7 +28,7 @@ STOP_WORDS = ['a', 'also', 'an', 'and', 'are', 'as', 'at', 'be',
 
 # When processing posts, words w/ a prefix that appears in this list
 # should be ignored.
-STOP_PREFIXES = ("@", "#", "http", "&amp", "\n\n")
+STOP_PREFIXES = ("@", "#", "http", "&amp")
 
 def process_database(school_name):
     '''
@@ -100,7 +99,8 @@ def return_ngrams(redd_post, n, start_time, end_time, ratio_min, ratio_max):
     if ratio_min <= float(redd_post["score"]) <= ratio_max:
         post_time = redd_post["epoch_time"]
         if (float(convert_date_time_to_epoch_time(start_time)) <= float(post_time)
-                             and float(post_time) <= float(convert_date_time_to_epoch_time(end_time))):
+            and float(post_time) <= float(convert_date_time_to_epoch_time(
+                                        end_time))):
             abridged_post = ignore_stop_words(redd_post)
             n_grams_list = []
             for i in range(0, len(abridged_post) - (n - 1)):
@@ -134,10 +134,10 @@ def all_ngrams(redd_posts, n, start_time, end_time, ratio_min, ratio_max):
     return all_ngrams_list
 
 
-#this is the final function we call to get list of k-elements each comprising of n words
-def find_top_k_ngrams(school_name, n, k, start_time='01/01/00', end_time='03/01/21', ratio_min=0, ratio_max=500):
+def find_top_k_ngrams(school_name, n, k, start_time='01/01/00',
+                end_time='03/01/21', ratio_min=0, ratio_max=500):
     '''
-    Find k most frequently occurring n-grams
+    Find k most frequently occurring n-grams in a school's reddit
     Inputs:
         school_file (csv): csv file
         n (int): the number of words in an n-gram
@@ -157,7 +157,9 @@ def find_top_k_ngrams(school_name, n, k, start_time='01/01/00', end_time='03/01/
         final_lst.append(final_str)
     return final_lst
 
-def create_word_cloud(school_file, n, k, start_time, end_time, ratio_min, ratio_max):
+
+def create_word_cloud(school_file, n, k, start_time,
+                    end_time, ratio_min, ratio_max):
     """
     This function creates a word cloud of the top words.
     Inputs:
@@ -171,7 +173,8 @@ def create_word_cloud(school_file, n, k, start_time, end_time, ratio_min, ratio_
     Outputs:
         wordcloud (onto website)
     """
-    text = find_top_k_ngrams(school_file, n, k, start_time, end_time, ratio_min, ratio_max)
+    text = find_top_k_ngrams(school_file, n, k, start_time,
+                            end_time, ratio_min, ratio_max)
     multiplier = len(text)
     new_text = ""
     for word in text:
@@ -182,3 +185,4 @@ def create_word_cloud(school_file, n, k, start_time, end_time, ratio_min, ratio_
     wordcloud = WordCloud().generate(new_text)
 
     return wordcloud
+
