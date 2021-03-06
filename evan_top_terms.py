@@ -137,7 +137,7 @@ def all_ngrams(redd_posts, n, start_time, end_time, ratio_min, ratio_max):
 def find_top_k_ngrams(school_name, n, k, start_time='01/01/00',
                 end_time='03/01/21', ratio_min=0, ratio_max=500):
     '''
-    Find k most frequently occurring n-grams
+    Find k most frequently occurring n-grams in a school's reddit
     Inputs:
         school_file (csv): csv file
         n (int): the number of words in an n-gram
@@ -156,6 +156,7 @@ def find_top_k_ngrams(school_name, n, k, start_time='01/01/00',
         final_str = ' '.join(i)
         final_lst.append(final_str)
     return final_lst
+
 
 def create_word_cloud(school_file, n, k, start_time,
                     end_time, ratio_min, ratio_max):
@@ -184,3 +185,4 @@ def create_word_cloud(school_file, n, k, start_time,
     wordcloud = WordCloud().generate(new_text)
 
     return wordcloud
+
